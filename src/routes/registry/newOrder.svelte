@@ -2,7 +2,11 @@
 	import Title from './components/title.svelte';
 	import Toolbar from './components/toolbar.svelte';
     import FormPatient from './components/form-patient.svelte';
+	import FormOrder from './components/form-order.svelte';
+	import FormSamples from './components/form-samples.svelte';
 	import { fly } from 'svelte/transition';
+	import { step } from '$lib/stores/orders';
+	
 </script>
 
 <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true" >
@@ -20,7 +24,19 @@
 					<div class="sm:flex sm:items-start" >
 						<Title />
 					</div>
-                    <FormPatient/>
+					
+
+				{#if $step ==  1  }
+					<FormPatient/>
+				{:else if $step ==  2 }               
+					<FormOrder/>
+				{:else if $step  == 3}
+				<!--  -->
+				<FormSamples/>
+				{:else}
+				<!--  -->
+				{/if}
+                    
                     <Toolbar />
 				</div>
 			</div>
