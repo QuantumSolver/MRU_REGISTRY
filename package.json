@@ -4,6 +4,7 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
+		"nb": "node build",
 		"package": "svelte-kit package",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync",
@@ -20,6 +21,8 @@
 		"eslint": "^8.16.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-svelte3": "^4.0.0",
+		"flowbite": "^1.4.7",
+		"flowbite-svelte": "^0.21.4",
 		"moment": "^2.29.4",
 		"pg": "^8.7.3",
 		"postcss": "^8.4.14",

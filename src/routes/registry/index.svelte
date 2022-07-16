@@ -1,6 +1,7 @@
 <script>
-import { orders } from '$lib/stores/orders';
+import { orders , orderModal} from '$lib/stores/orders';
 
+import Modal from './newOrder.svelte'
 export let order
 import moment from 'moment';
 $orders = order
@@ -11,7 +12,7 @@ $orders = order
           <h1 class="font-medium text-4xl ml-14 mt-4 ">Registry</h1>
 		
           <div class="flex flex-row-reverse w-screen">
-            <!-- <button on:click={()=>$orderModal = true} type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2  text-base font-medium text-white sm:ml-3 sm:w-auto sm:text-sm bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-56">New</button> -->
+            <button on:click={()=>$orderModal = true} type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2  text-base font-medium text-white sm:ml-3 sm:w-auto sm:text-sm bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-56">New</button>
             <!-- <button on:click={refreshOrders} type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2  text-base font-medium text-white sm:ml-3 sm:w-auto sm:text-sm bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Refresh</button> -->
             <!-- <button on:click={()=>$refr++} type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2  text-base font-medium text-white sm:ml-3 sm:w-auto sm:text-sm bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Refresh++ {$refr}</button> -->
             <!-- <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel</button> -->
@@ -74,15 +75,18 @@ $orders = order
   </table>
   {/if}        
 
-<!-- 
+
+ 
 {#if $orderModal }
     
 <Modal/>
 
 {/if}
+
+<!-- 
 {#if $sampTypeModal }
 <SampleType />
 {/if}
 {#if $sampModal }
 <Sample />
-{/if} -->
+{/if}  -->

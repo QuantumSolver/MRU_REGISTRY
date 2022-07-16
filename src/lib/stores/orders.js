@@ -5,6 +5,7 @@ export let user = writable({name:'marc'});
 export let sampModal = writable(false);
 export let sampTypeModal = writable(false);
 
+export let step = writable(1);
 
 export let refr = writable(1);
 
