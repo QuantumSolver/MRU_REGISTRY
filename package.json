@@ -38,6 +38,7 @@
 	"type": "module",
 	"dependencies": {
 		"@sveltejs/adapter-node": "^1.0.0-next.81",
+		"node-fetch": "^3.2.9",
 		"svelte-select": "^4.4.7"
 	}
 }

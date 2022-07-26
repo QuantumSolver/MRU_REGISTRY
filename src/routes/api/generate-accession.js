@@ -1,4 +1,5 @@
 import pool from "$lib/utils/pool";
+import fetch from 'node-fetch';
 let OE_HOST = process.env.OE_HOST
 import https from 'https';
 const httpsAgent = new https.Agent({
