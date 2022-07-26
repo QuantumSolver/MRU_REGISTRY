@@ -1,25 +1,42 @@
 
 <script>
   import {  Input,Textarea, Label , Button ,Iconinput , Search  ,Select } from 'flowbite-svelte';
-import { Qrcode , Search as srch} from "svelte-heros";
-  let textareaprops = {
-    id: 'address',
-    name: 'address',
-    label: 'Address',
-    rows: 2,
-    placeholder: 'Patient address...',
-  };
-  let selected = 'Male'
+import moment from 'moment';
+  import { patientTemplate } from '$lib/stores/newOrder';
+import { Search as srch} from "svelte-heros";
+
+  $: $patientTemplate.nic = ($patientTemplate.nic).toUpperCase()
+  let findPatient = async ()=>{
+
+      let queryPatient = await fetch(`/api/patient?nic=${$patientTemplate.nic}`)
+      if(queryPatient.ok){
+        let patient_data = await queryPatient.json()
+        console.log(patient_data)
+
+        $patientTemplate.id = patient_data.id
+        $patientTemplate.name = patient_data.names
+        $patientTemplate.surname = patient_data.surname
+        $patientTemplate.sex = patient_data.sex
+        $patientTemplate.dob =  moment(patient_data.date_of_birth,'YYYY/MM/DDTHH:mm:ss.sssz').format('YYYY-MM-DD'),
+        $patientTemplate.nic = patient_data.nic
+    
+      }
+
+  }
+
+  $: console.log($patientTemplate.dob )
+  
+  
   </script>
-  <div class="relative px-8 pt-6 pb-8 flex flex-col mt-12 right-0 left-0  " >
+  <div class="relative px-8 pt-6 pb-8 flex flex-col mt-5 right-0 left-0  " >
     
     
       <div class="-mx-3 md:flex mb-6">
           <div class="md:w-1/2 px-3">
               <Label for='default-input' class='block mb-2'>National ID</Label>            
               <div class="relative">       
-                <Iconinput noBorder   icon={srch}  id='nic' placeholder="N123456878D"   /> 
-                <Button textSize="text-sm" class="absolute rounded-l-none  top-0 bottom-0 right-0" type="button">Search</Button>
+                <Iconinput noBorder   icon={srch}  id='nic' placeholder="N123456878D" bind:value={$patientTemplate.nic}  /> 
+                <Button on:click={findPatient} textSize="text-sm" class="absolute rounded-l-none  top-0 bottom-0 right-0" type="button">Search</Button>
               </div>
                 <p class="text-grey-dark text-xs italic">Please enter patient national identification number</p>
           </div>
@@ -30,12 +47,12 @@ import { Qrcode , Search as srch} from "svelte-heros";
       <div class="-mx-3 md:flex mb-6">
       <div class="md:w-1/2 px-3 mb-6 md:mb-0">
         <Label for='fn' class='block mb-2'>First Name</Label>            
-          <Input   id='fn'    />
+          <Input   id='fn'  bind:value={$patientTemplate.name}   />
         <!-- <p class="text-red text-xs italic">Please fill out this field.</p> -->
       </div>
       <div class="md:w-1/2 px-3">
         <Label for='lm' class='block mb-2'>Last Name</Label>            
-        <Input id='lm'     />
+        <Input id='lm'   bind:value={$patientTemplate.surname}   />
       </div>
       
       <div class="md:w-1/2 px-3">
@@ -43,9 +60,9 @@ import { Qrcode , Search as srch} from "svelte-heros";
           <Label for='gn' class='block mb-2'>Gender</Label>            
         
           <div class="relative">
-              <Select id='gn' bind:value="{selected}" >
-                  <option>Male</option>
-                  <option>Female</option>
+              <Select id='gn'   bind:value={$patientTemplate.sex}  >
+                  <option value="M" class="text-lg">Male</option>
+                  <option value="F" class="text-lg">Female</option>
               </Select>
           </div>
         </div>
@@ -61,18 +78,18 @@ import { Qrcode , Search as srch} from "svelte-heros";
   
         <Label for='dob' class='block mb-2'>Date of birth</Label>         
          <div class="relative">
-            <Input id='dob'  type='date'/>
+            <Input id='dob'  type='date' bind:value={$patientTemplate.dob} />
         </div>
       </div>
     </div>
   
-  
+<!--   
   
     <div class="-mx-3 md:flex mb-6">
       <div class="md:w-full px-3">
-        <Textarea  {...textareaprops}  />
+        <Textarea  {...textareaprops} bind  />
        </div>
     </div>
-  
+   -->
   
   </div>

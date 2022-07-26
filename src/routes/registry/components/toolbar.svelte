@@ -1,11 +1,34 @@
 <script>
-import { orderModal ,step} from "$lib/stores/orders";
+import { orderModal ,step ,getOrder} from "$lib/stores/orders";
 import { Button } from 'flowbite-svelte';
+import { patientTemplate } from "$lib/stores/newOrder";
+
+
+
+export async function saveOrder(){
+
+let orderDetails = $patientTemplate
+
+const options = {
+    method: 'POST',
+    body:`${JSON.stringify(orderDetails)}`
+    
+};
+
+
+let pushOrder = await fetch(`./api/create-order`,options)
+
+if(pushOrder.ok){
+    $orderModal = false
+    getOrder()
+}
+} 
+
 </script>
 
 <div class=" gap-12 flex  flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
     <div>
-        <Button outline on:click={()=>{ $step = 1; $orderModal = false ;} } >Cancel</Button>
+        <Button outline on:click={()=>{  $orderModal = false ;} } >Cancel</Button>
     </div>
 
     <div>
@@ -17,12 +40,9 @@ import { Button } from 'flowbite-svelte';
             <Button on:click="{()=>{$step++} }">Next</Button>
         {:else if $step  == 3}
             <Button  on:click="{()=>$step--  }">Previous</Button>
-            <Button on:click="{()=>{$step = 1 ;$orderModal = false ; } }">Save</Button>
+            <Button on:click="{saveOrder}">Save</Button>
         {:else}
         <!--  -->
         {/if}
     </div>
-
-
-
 </div>
