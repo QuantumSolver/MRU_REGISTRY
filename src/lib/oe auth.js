@@ -1,66 +1,41 @@
-
-// import fs from 'fs';
 import dotenv from 'dotenv/config';
+import pool from "./pool.js";
+import fetch from 'node-fetch';
 import https from 'https';
-
-let OE_HOST = process.env.OE_HOST
-console.log(OE_HOST)
 const httpsAgent = new https.Agent({
   rejectUnauthorized: false,
 });
 
-import fetch from 'node-fetch'
+
+let OE_HOST = process.env.OE_HOST
 
 
-	// 	const requestOptions = {
-	// 	   agent: httpsAgent,
-	// 	   method: 'GET', 
-	// 		headers: {
-	// 		  'Content-Type': 'application/json',
-	// 		  Authorization: 'Basic enl4OjQzNjM3NDhLaW5n'
-	// 		},
-	// 	   body: JSON.stringify(d)
-	//    };
+
+console.log(OE_HOST);
 
 
- async function getCsrf(){	  
-	
-	let request = await fetch(`https://dev.npes.ml/OpenELIS-Global/LoginPage`,{  agent: httpsAgent})
-	let csrf =  (await request.text()).split('csrf" value="')[1].split('"')[0] 
-	let jsessionid =  String(request.headers.get('set-cookie')).split(';')[0]
-	const form = new URLSearchParams({
-		"loginName":"admin",
-		"password":"adminADMIN!",
-		"_csrf":`${csrf}`
-	});
-	// form.append("loginName", "marc");
-	// form.append("password", "4363748King!");
-	// form.append("_csrf", `${csrf}`);
+async function getAuthTokens(){
 
-		
-	const options = {
-		agent: httpsAgent,
-		method: 'POST',
-		headers: {
-		cookie: `${jsessionid}`,
-		'Content-Type': 'application/x-www-form-urlencoded'
-		},
-		redirect: 'manual'
-		
-	};
-	options.body = form;
-	let authenticate = await fetch(`https://dev.npes.ml/OpenELIS-Global/ValidateLogin`,options)
-	let koekie = String(authenticate.headers.get('set-cookie')).split(';')[0]
-	if(koekie){
-		 let getauthedCsrf = await fetch(`https://dev.npes.ml/OpenELIS-Global/Home`, {  agent: httpsAgent, method: 'GET', headers: {
-		 cookie: `${koekie}`}
-		})
 
-		let newCSRF =  (await getauthedCsrf.text()).split('csrf" value="')[1].split('"')[0] 
-		console.log(koekie,newCSRF)
+
+
+
+        let cookieToken = await pool.query(`SELECT session_id cookie,csrf_token token FROM registry.auth_session`);
+        console.log(cookieToken.rows)
+
+         const options = {
+        agent: httpsAgent,
+        method: 'GET',
+        headers: {
+        'cookie': `${cookieToken.rows[0].cookie}`,
+        'x-csrf-token' : `${cookieToken.rows[0].token}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
+        }
 	}
+        
+		let getBarcode = await fetch(`https://${OE_HOST}/OpenELIS-Global/ajaxQueryXML?provider=SampleEntryGenerateScanProvider`,options)
+          let bdata = await getBarcode.text()
+                console.log(bdata)
+}   
 
-
-}
-
-getCsrf()
+getAuthTokens()

@@ -7,3 +7,5 @@ node_modules
 .env.*
 !.env.example
 src/routes/registry/components/dl.js
+src/lib/utils/pool.js
+src/lib/oe auth.js
