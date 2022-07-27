@@ -7,51 +7,6 @@
     }
     let firstNum = '' 
     $: $plate[0].c1 = zer0(firstNum)
-    
-    // $: if($plate[0].c1 != '0000'){
-    //     for(let i = 0; i < $plate.length; i++){
-    //       if(i ==0){  
-    //     $plate[i].c2 = zer0(parseInt($plate[i].c1)+1)
-    //     $plate[i].c3 = zer0(parseInt($plate[i].c2)+1)
-    //     $plate[i].c4 = zer0(parseInt($plate[i].c3)+1)
-    //     $plate[i].c5 = zer0(parseInt($plate[i].c4)+1)
-    //     $plate[i].c6 = zer0(parseInt($plate[i].c5)+1)
-    //     $plate[i].c7 = zer0(parseInt($plate[i].c6)+1)
-    //     $plate[i].c8 = zer0(parseInt($plate[i].c7)+1)
-    //     $plate[i].c9 = zer0(parseInt($plate[i].c8)+1)
-    //     $plate[i].c10 = zer0(parseInt($plate[i].c9)+1)
-    //     $plate[i].c11 = zer0(parseInt($plate[i].c10)+1)
-    //     $plate[i].c12 = zer0(parseInt($plate[i].c11)+1)}
-    //     else if  (i > 0 && i < 6){  
-    //     $plate[i].c1 = zer0(parseInt($plate[i-1].c12)+1)
-    //     $plate[i].c2 = zer0(parseInt($plate[i].c1)+1)
-    //     $plate[i].c3 = zer0(parseInt($plate[i].c2)+1)
-    //     $plate[i].c4 = zer0(parseInt($plate[i].c3)+1)
-    //     $plate[i].c5 = zer0(parseInt($plate[i].c4)+1)
-    //     $plate[i].c6 = zer0(parseInt($plate[i].c5)+1)
-    //     $plate[i].c7 = zer0(parseInt($plate[i].c6)+1)
-    //     $plate[i].c8 = zer0(parseInt($plate[i].c7)+1)
-    //     $plate[i].c9 = zer0(parseInt($plate[i].c8)+1)
-    //     $plate[i].c10 = zer0(parseInt($plate[i].c9)+1)
-    //     $plate[i].c11 = zer0(parseInt($plate[i].c10)+1)
-    //     $plate[i].c12 = zer0(parseInt($plate[i].c11)+1)}
-    //     else{
-    //     $plate[i].c1 = zer0(parseInt($plate[i-1].c10)+1)
-    //     $plate[i].c2 = zer0(parseInt($plate[i].c1)+1)
-    //     $plate[i].c3 = zer0(parseInt($plate[i].c2)+1)
-    //     $plate[i].c4 = zer0(parseInt($plate[i].c3)+1)
-    //     $plate[i].c5 = zer0(parseInt($plate[i].c4)+1)
-    //     $plate[i].c6 = zer0(parseInt($plate[i].c5)+1)
-    //     $plate[i].c7 = zer0(parseInt($plate[i].c6)+1)
-    //     $plate[i].c8 = zer0(parseInt($plate[i].c7)+1)
-    //     $plate[i].c9 = zer0(parseInt($plate[i].c8)+1)
-    //     $plate[i].c10 = zer0(parseInt($plate[i].c9)+1)
-    //     $plate[i].c11 = ''
-    //     $plate[i].c12 = ''}
-        
-
-    //     }}
-
 
     $: if($plate[0].c1 == '0000'){ setNull()}
     
@@ -86,31 +41,32 @@
             }
         }
     }
-    // $: if($plate[7].c1 != '0000'){
-    //     for(let i = 0; i < $plate.length; i++){
-    //         if(i == 0){  
-    //             $plate[i].c2 = zer0(parseInt($plate[7].c1)+1)
-    //         }
-    //     }
-    // }
-    // $: if($plate[0].c2 != '0000'){
-    //     for(let i = 0; i < $plate.length; i++){
-    //         {
-                
-    //             $plate[i].c3 = zer0(parseInt($plate[i-1].c3)+1)
-    //         }
-    //     }
-    // }
 
 </script>
 
-<h1 class="font-medium leading-tight text-4xl py-2 mt-9 ">Plate Setup</h1>
+                
+  
 
-<label for="starting-well" class="block mt-10  ml-2 text-sm font-medium text-gray-700">Starting Well</label>                               
+  <div class="container mx-auto px-4 sm:px-8">
+    
+    <div class="py-8">
+      
+    <h1 class="font-medium text-3xl ">Registry</h1>
+	<div class="container">
+</div>
+<label for="starting-well" class="block mt-3  ml-2 text-sm font-medium text-gray-700">Starting Well</label>                               
 <input id="starting-well" type="text" min="0" max="9999" maxlength='4' bind:value="{firstNum}" class="focus:ring-indigo-500  mb-5 ml-2 focus:border-indigo-500 text-right  w-1/10 rounded-none  rounded-r-md rounded-l-md sm:text-sm border-gray-300">
 
-                <table class="shadow-lg bg-white inset-20 m-t-10">
-                            <tr class="bg-gray-50">
+      
+       <div class="">
+        <div class="inline-block ">
+         <!-- 
+            
+            PLATE STARTS
+            
+          -->
+             <table class="shadow-xl bg-white inset-20 ">
+                            <tr class="bg-gray-100">
                                 <th class="px-6 py-2 text-base text-gray-700  border-b border-r border-gray-200 ">
                                      
                                 </th>
@@ -159,7 +115,7 @@
       
       {#each $plate as p , i }
       <tr class="whitespace-nowrap hover:bg-gray-100">
-        <td class="px-6 py-4 text-base text-gray-700 bg-gray-50 border-r border-gray-200 ">
+        <td class="px-6 py-4 text-base text-gray-700 bg-gray-100 border-r border-gray-200 ">
             {p.row}
         </td>
         <td class="px-6 py-4 cursor-pointer  w-max text-base text-gray-700 text-right border-r border-b border-gray-200 {hover=='c1'?'bg-gray-100':''} "
@@ -210,13 +166,13 @@
         on:mouseenter="{()=>hover = 'c12'}" on:mouseleave="{()=>hover = ''}">
             {p.c12}
         </td>
-        <td class="px-6 py-4 text-base text-gray-700 bg-gray-50 border-r border-gray-200">
+        <td class="px-6 py-4 text-base text-gray-700 bg-gray-100 border-r border-gray-200">
             {p.row}
         </td>
     </tr>
 
       {/each}       </tbody>
-      <tr class="bg-gray-50">
+      <tr class="bg-gray-100">
             <th class="px-6 py-2 text-base text-gray-700  border-t border-r border-gray-200 " >
                  
             </th>
@@ -263,4 +219,13 @@
         </tr>
                 </table>
 
-             
+          <!-- 
+
+            PLATE ENDS
+
+           -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
