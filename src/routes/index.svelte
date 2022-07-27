@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     import { Toast ,Button } from "flowbite-svelte";
 	import { CheckCircle  } from 'svelte-heros';
     let show = false;
@@ -23,4 +23,4 @@
     <Toast  position="tr" simple transition='blur'  >
         <CheckCircle slot="icon"/> Autohide in {counter}s.
     </Toast>
-{/if}
+{/if} -->

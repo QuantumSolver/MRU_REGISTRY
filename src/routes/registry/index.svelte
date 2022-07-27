@@ -55,7 +55,7 @@ let rambo
             <tbody>        
               {#each $orders as order }
               <tr class=" hover:bg-gray-200">
-                <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold  text-sm"><a href="https://oe.npes.ml/OpenELIS-Global/SampleEdit?type=readwrite&accessionNumber={order.labno}" target="_blank">{order.labno}</a></td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold  text-sm"><a href="https://dev.npes.ml/OpenELIS-Global/SampleEdit?type=readwrite&accessionNumber={order.labno}" target="_blank">{order.labno}</a></td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold   text-sm">{moment(order.request_time,'YYYY-MM-DDTHH:mm').format('DD/MM/YYYY HH:mm')}</td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold  text-sm">{order.requester}</td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold text-sm">{order.created_by}</td>
