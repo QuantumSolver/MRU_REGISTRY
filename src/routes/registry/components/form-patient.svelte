@@ -1,27 +1,27 @@
-
 <script>
   import {  Input,Textarea, Label , Button ,Iconinput , Search  ,Select } from 'flowbite-svelte';
 import moment from 'moment';
-  import { patientTemplate } from '$lib/stores/newOrder';
+  import { patientTemplate ,resetPatientTemplate } from '$lib/stores/newOrder';
 import { Search as srch} from "svelte-heros";
 
   $: $patientTemplate.nic = ($patientTemplate.nic).toUpperCase()
-  let findPatient = async ()=>{
-
-      let queryPatient = await fetch(`/api/patient?nic=${$patientTemplate.nic}`)
-      if(queryPatient.ok){
+  let findPatient = async (nic)=>{
+    
+      resetPatientTemplate()
+      $patientTemplate.nic = nic
+      let queryPatient = await fetch(`/api/patient?nic=${nic}`)
+      if (queryPatient.status == 200){
         let patient_data = await queryPatient.json()
-        console.log(patient_data)
 
         $patientTemplate.id = patient_data.id
         $patientTemplate.name = patient_data.names
         $patientTemplate.surname = patient_data.surname
         $patientTemplate.sex = patient_data.sex
         $patientTemplate.dob =  moment(patient_data.date_of_birth,'YYYY/MM/DDTHH:mm:ss.sssz').format('YYYY-MM-DD'),
-        $patientTemplate.nic = patient_data.nic
-    
+        $patientTemplate.nic = nic
+      }else{      
+        $patientTemplate.nic = nic
       }
-
   }
 
   $: console.log($patientTemplate.dob )
@@ -36,7 +36,7 @@ import { Search as srch} from "svelte-heros";
               <Label for='default-input' class='block mb-2'>National ID</Label>            
               <div class="relative">       
                 <Iconinput noBorder   icon={srch}  id='nic' placeholder="N123456878D" bind:value={$patientTemplate.nic}  /> 
-                <Button on:click={findPatient} textSize="text-sm" class="absolute rounded-l-none  top-0 bottom-0 right-0" type="button">Search</Button>
+                <Button on:click={()=>findPatient($patientTemplate.nic)} textSize="text-sm" class="absolute rounded-l-none  top-0 bottom-0 right-0" type="button">Search</Button>
               </div>
                 <p class="text-grey-dark text-xs italic">Please enter patient national identification number</p>
           </div>

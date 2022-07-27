@@ -9,11 +9,9 @@ const httpsAgent = new https.Agent({
 
 export const get = async ()=>{
         
-    console.log(OE_HOST)
 
     let cookieToken = await pool.query(`SELECT session_id cookie,csrf_token token FROM registry.auth_session`);
-    //  console.table(...cookieToken.rows)
-
+    
     const options = {
         agent: httpsAgent,
         method: 'GET',

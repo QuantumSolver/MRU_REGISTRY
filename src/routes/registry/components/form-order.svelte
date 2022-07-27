@@ -10,10 +10,6 @@ import {fly} from 'svelte/transition';
 
 let fetching = false
 
-function updateFetching(){
-setTimeout(()=>fetching = false,1000)
-
-}
 
   onMount(async()=>{
     if($sites.length == 0){
