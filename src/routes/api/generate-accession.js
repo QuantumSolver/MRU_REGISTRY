@@ -12,7 +12,7 @@ export const get = async ()=>{
     console.log(OE_HOST)
 
     let cookieToken = await pool.query(`SELECT session_id cookie,csrf_token token FROM registry.auth_session`);
-     console.table(...cookieToken.rows)
+    //  console.table(...cookieToken.rows)
 
     const options = {
         agent: httpsAgent,
@@ -26,7 +26,6 @@ export const get = async ()=>{
     };
     let getBarcode = await fetch(`https://${OE_HOST}/OpenELIS-Global/ajaxQueryXML?provider=SampleEntryGenerateScanProvider`,options)
     let bdata = await getBarcode.text() 
-    console.log(bdata)
     return{
         body:  bdata.split('<formfield>')[1].split('</formfield>')[0]
     }

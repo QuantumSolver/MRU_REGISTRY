@@ -11,7 +11,7 @@ export const post = async ({request})=>{
     const orders = await pool.query(`insert into registry."order"(patient,id,labno,site, ward,program,requester,request_time,created_by)values ('${patientId}','${orderId}', '${patient.order.labno}','${patient.order.site.id}','${patient.order.ward.id}','${patient.order.program}','${patient.order.requester.id}','${patient.request_time}','registrar') `)
     
     let sampleQuery = patient.samples.map((element )=>
-    `('${element.labno}','${String(element.condition == '' ? '' : element.condition.map(values=>values.label))}','${element.collection_date}'::timestamp,'${element.collector}','${String(element.tests.map(values=>values.label))}','${orderId}','registrar','${element.sample_type}') `
+    `('${element.labno}','${String(element.condition == '' ? '' : element.condition.map(values=>values.value))}','${element.collection_date}'::timestamp,'${element.collector}','${String(element.tests.map(values=>values.value))}','${orderId}','registrar','${element.sample_type}') `
     )
 
     let ress = await  pool.query(`INSERT INTO registry.samples(labno,condition, collection_date , collector, tests , order_id,created_by,sample_type) VALUES ${sampleQuery}  `)
