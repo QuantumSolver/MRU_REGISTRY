@@ -51,7 +51,7 @@
     
     <div class="py-8">
       
-    <h1 class="font-medium text-3xl ">Registry</h1>
+    <h1 class="font-medium text-3xl ">Plate Setup</h1>
 	<div class="container">
 </div>
 <label for="starting-well" class="block mt-3  ml-2 text-sm font-medium text-gray-700">Starting Well</label>                               
