@@ -17,7 +17,7 @@ export let patientTemplate = writable({
         labno: "",
         site: "",
         ward: "",
-        program: "",
+        program: "1400",
         requester: ""
     },
     samples: []
@@ -40,7 +40,7 @@ export function resetPatientTemplate() {
             labno: "",
             site: "",
             ward: "",
-            program: "",
+            program: "1400",
             requester: ""
         },
         samples: []
