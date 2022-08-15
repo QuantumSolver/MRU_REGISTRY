@@ -26,7 +26,10 @@ import { Search as srch} from "svelte-heros";
 
   $: console.log($patientTemplate.dob )
   
-  
+  let genderList = [
+    {value:"M", name: "Male"},
+    {value:"F", name: "Female"},
+  ]
   </script>
   <div class="relative px-8 pt-6 pb-8 flex flex-col mt-5 right-0 left-0  " >
     
@@ -60,10 +63,7 @@ import { Search as srch} from "svelte-heros";
           <Label for='gn' class='block mb-2'>Gender</Label>            
         
           <div class="relative">
-              <Select id='gn'   bind:value={$patientTemplate.sex}  >
-                  <option value="M" class="text-lg">Male</option>
-                  <option value="F" class="text-lg">Female</option>
-              </Select>
+              <Select id='gn' items={genderList}   bind:value={$patientTemplate.sex}  />
           </div>
         </div>
   
