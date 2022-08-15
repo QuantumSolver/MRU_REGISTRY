@@ -62,6 +62,7 @@ export let providers = writable([]);
 export let sampleTypes = writable([]);
 
 export let selectedSampleType = writable();
+export let smallModal1 = writable(false);
 
 export let sampleModal = writable(false);
 export let conditions = writable([])

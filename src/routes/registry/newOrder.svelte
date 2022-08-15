@@ -9,12 +9,9 @@
 	import { step } from '$lib/stores/orders';
 	import NewSample from './components/new-sample.svelte';
 
-	import {Select,   Modal as SmallModal  } from 'flowbite-svelte';
-import {  sampleTypes ,selectedSampleType , sampleModal ,conditions} from '$lib/stores/newOrder';
+	import {Select,   Modal ,Button  } from 'flowbite-svelte';
+import {  sampleTypes ,selectedSampleType , sampleModal ,conditions,smallModal1} from '$lib/stores/newOrder';
 
-  // for small modal 1
-  const id1 = "small-modal";
-  let smallModal1
 
   onMount(async()=>{
 	
@@ -35,23 +32,7 @@ $conditions = await getConditions.json()
 			<!-- This element is to trick the browser into centering the modal contents. -->
 			<span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true"
 				>&#8203;</span>
-<SmallModal 
-	bind:this={smallModal1}
-	id={id1}
-	title="Sample Type"
-	btn1="Select"
-	btn2="Cancel"
-	on:handlebtn1={()=>{ smallModal1.closeModal() ; $sampleModal = true;}}
-	on:handlebtn2={smallModal1.closeModal}>
-	 
-	<Select bind:value={$selectedSampleType}>
-	  {#each $sampleTypes as item}
-	  <option value={item}>{item.description}</option>
-	  {/each}
-	
-	</Select>
-	
-	</SmallModal>		
+
 
 
 						<div
@@ -85,3 +66,20 @@ $conditions = await getConditions.json()
 {#if $sampleModal}
  <NewSample/>
 {/if}
+<Modal 
+	bind:open={$smallModal1}
+	title="Sample Type"
+	size='xs'
+	>
+	
+	<Select bind:value={$selectedSampleType}>
+	  {#each $sampleTypes as item}
+	  <option value={item}>{item.description}</option>
+	  {/each}
+	
+	</Select>
+	<svelte:fragment slot='footer'>
+		<Button on:click={()=>{ $sampleModal = true ; }}>OK</Button>
+		<Button color="alternative">Cancel</Button>
+	</svelte:fragment>
+</Modal>		
