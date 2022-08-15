@@ -9,7 +9,7 @@
 	import { step } from '$lib/stores/orders';
 	import NewSample from './components/new-sample.svelte';
 
-	import {Select,   SmallModal  } from 'flowbite-svelte';
+	import {Select,   Modal as SmallModal  } from 'flowbite-svelte';
 import {  sampleTypes ,selectedSampleType , sampleModal ,conditions} from '$lib/stores/newOrder';
 
   // for small modal 1

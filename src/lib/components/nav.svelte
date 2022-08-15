@@ -1,5 +1,30 @@
-<ul class="bg-white-100 p-4  text-sm border-b-2 shadow-md w-full-screen">
-    <li class="inline-block "><a sveltekit:prefetch href="/" class="mx-1 px-4 py-2 text-white no-underline bg-indigo-500 rounded hover:bg-indigo-700 font-semibold ">Home</a></li>
-    <li class="inline-block "><a sveltekit:prefetch href="/registry" class="mx-1 px-4 py-2 text-white no-underline bg-indigo-500 rounded hover:bg-indigo-700 font-semibold ">Registry</a></li>
-    <li class="inline-block "><a sveltekit:prefetch href="/analyzer" class="mx-1 px-4 py-2 text-white no-underline bg-indigo-500 rounded hover:bg-indigo-700 font-semibold ">Analyzer</a></li>
+<script>
+    import { Dropdown ,DropdownItem,Datepicker ,Button} from "flowbite-svelte";
+    import { Logout  } from "svelte-heros";
+    import { goto } from '$app/navigation';
+
+
+    
+</script>
+
+<ul class="bg-white-100  text-sm border-b-2 shadow-lg w-full-screen px-2">
+    <li class="inline-block py-2 ">
+        <Button  on:click={()=>goto("/")} >Home</Button>
+    </li>
+    <li class="inline-block py-2  ">
+        <Button  on:click={()=>goto("/registry")} >Registry</Button>
+    </li>
+    <li class="inline-block py-2   ">
+        <Dropdown label="Epidemiology" arrowIcon={false} >  
+            <DropdownItem>Epi-Data</DropdownItem>
+            <DropdownItem on:click={()=>goto("/analyzer")} >Analyzer plate setup</DropdownItem>
+            <DropdownItem>Analyzer Results</DropdownItem>
+            <DropdownItem>Reports</DropdownItem>
+        </Dropdown>
+
+    </li>
+
+    <li class="p-2 m-auto md:float-right self-end">
+         <Logout  size="30" class="text-indigo-500 cursor-pointer inline-block " />
+    </li>
 </ul>

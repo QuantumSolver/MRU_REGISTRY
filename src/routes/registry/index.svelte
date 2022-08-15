@@ -1,11 +1,9 @@
 <script>
 import { orders , orderModal,step ,getOrder} from '$lib/stores/orders';
-import { resetPatientTemplate , sampleTypes ,selectedSampleType} from '$lib/stores/newOrder';
+import { resetPatientTemplate }  from '$lib/stores/newOrder';
 import Modal from './newOrder.svelte'
 
-  const id1 = "small-modal";
-  let smallModal1;
-import { Select, SmallModal ,MediumModal, Button} from 'flowbite-svelte';
+import { Button} from 'flowbite-svelte';
 export let order
 import moment from 'moment';
 $orders = order
@@ -16,7 +14,6 @@ function newOrderPopUp(){
   $orderModal = true;
 
 }
-let rambo
 </script>
 
 {#if $orders.length > 0}
@@ -32,8 +29,7 @@ let rambo
    
 </div>
       <div class="flex gap-2 flex-row-reverse">
-      <!-- <button on:click={newOrderPopUp} type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2  text-base font-medium text-white sm:ml-3 sm:w-auto sm:text-sm bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ">Add</button> -->
-    
+     
       <Button on:click={newOrderPopUp} >Add</Button>
       <Button outline on:click={getOrder} >Refresh</Button>
       </div>

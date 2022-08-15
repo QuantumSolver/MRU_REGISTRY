@@ -1,6 +1,6 @@
 
 <script >
-import {  Table , TableBody , TableHeadCell ,TableHead ,TableBodyCell , TableBodyRow ,ModalButton } from 'flowbite-svelte';
+import {  Table , TableBody , TableHeadCell ,TableHead ,TableBodyCell , TableBodyRow ,Button  } from 'flowbite-svelte';
 import {  sampleTypes } from '$lib/stores/newOrder';
 import { patientTemplate  }  from '$lib/stores/newOrder';
 import { onMount } from 'svelte';
@@ -23,7 +23,9 @@ $sampleTypes = await  getSampleTypes.json()
 <div class="relative px-8 pt-6 pb-8 flex flex-col right-0 left-0 " > -->
  
 <div class="flex flex-row-reverse m-4">
-  <ModalButton id={id1} btnName={btnName1} /></div>
+  <Button id={id1}>{btnName1}</Button>
+  </div>
+  
 <button on:click={()=>{}}></button>
 
 <Table hoverable={true} class="max-w-screen-xl">

@@ -5,7 +5,6 @@ import { patientTemplate ,sites ,wards ,providers } from '$lib/stores/newOrder';
 import { Qrcode  } from "svelte-heros";
 import Sl from 'svelte-select';
 import { onMount } from 'svelte';
-import {fly} from 'svelte/transition';
 
 
 let fetching = false
@@ -34,6 +33,11 @@ let fetching = false
 const optionIdentifier = 'id';
   const labelIdentifier = 'name';
 
+
+/**
+ * 
+ * @param {number} parent_id
+ */
   async function getWards(parent_id){
   let fetchWards = await fetch(`/api/orgs?type=ward&id=${parent_id}`)
   $wards = await fetchWards.json()

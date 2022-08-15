@@ -41,7 +41,11 @@
             }
         }
     }
+    
+    
+    // text input as number only 
 
+$: firstNum = firstNum.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')
 </script>
 
                 
