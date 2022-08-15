@@ -19,9 +19,7 @@ let getConditions = await fetch('/api/conditions')
 $conditions = await getConditions.json()
 
   })
-  let items = $sampleTypes.map(v=>{return {value:v , name:v.description}})
-
- 
+  
   </script>
 
 
@@ -73,7 +71,7 @@ $conditions = await getConditions.json()
 	size='xs'
 	>
 	
-	<Select {items} bind:value={$selectedSampleType}/>
+	<Select items={$sampleTypes.map(v=>{return {value:v , name:v.description}})} bind:value={$selectedSampleType}/>
 	
 	<svelte:fragment slot='footer'>
 		<Button on:click={()=>{ $sampleModal = true ; }}>OK</Button>
