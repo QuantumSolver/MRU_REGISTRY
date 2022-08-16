@@ -15,7 +15,7 @@ let avatar = {
 
 </script>
 
-<Navbar let:hidden let:toggle rounded={true} navClass='border-b-2 shadow-lg py-2'>
+<Navbar let:hidden let:toggle navClass='border-b-2 shadow-lg py-2 w-full'>
 
 <div class="flex md:order-2">
     <Dropdown arrowIcon={false} inline={true}>
@@ -37,7 +37,7 @@ let avatar = {
       
       <Dropdown label="Epidemiology" placement="bottom-start" inline={true}>  
         <DropdownItem>Epi-Data</DropdownItem>
-        <DropdownItem on:click={()=>goto("/analyzer")} >Analyzer plate setup</DropdownItem>
+        <DropdownItem on:click={()=>goto("/analyzer/plate-setup")} >Analyzer plate setup</DropdownItem>
         <DropdownItem>Analyzer Results</DropdownItem>
         <DropdownItem>Reports</DropdownItem>
     </Dropdown>

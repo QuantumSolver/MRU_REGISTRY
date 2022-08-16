@@ -23,10 +23,10 @@ $conditions = await getConditions.json()
   </script>
 
 
-<div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true" >
+<div class="relative z-10 " aria-labelledby="modal-title" role="dialog" aria-modal="true" >
 
-	<div class="fixed inset-0 bg-gray-800 bg-opacity-60 " />
-	<div class="fixed z-10 inset-0 overflow-y-auto" transition:fly={{ y: 50 }} on:introstart on:outroend>
+	<div class="fixed inset-0 bg-gray-800 bg-opacity-60 overflow-hidden " />
+	<div class="fixed z-10 inset-0 " transition:fly={{ y: 50 }} on:introstart on:outroend>
 		<div class="flex items-center justify-center max-h-screen text-center min-w-fit " >
 			<!-- This element is to trick the browser into centering the modal contents. -->
 			<span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true"
