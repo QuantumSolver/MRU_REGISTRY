@@ -18,13 +18,13 @@ function newOrderPopUp(){
 
 {#if $orders.length > 0}
 
-<div class="container mx-auto px-4 sm:px-8">
+<div class="container mx-auto  sm:px-8">
     
-    <div class="py-8">
+    <div class="py-2">
       
 	<div class="container">
           
-    <h1 class="font-medium text-3xl my-1">Registry</h1>
+    <h1 class="font-medium text-3xl">Registry</h1>
    
    
 </div>
@@ -36,27 +36,30 @@ function newOrderPopUp(){
       
        <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
         <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-          <table class="min-w-full leading-normal">
-            <thead>
-                
-              <tr>
-                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-200 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">Lab Number</th>
-                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-200 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">Requested on</th>
-                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-200 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">Requested By</th>
-                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-200 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">Created By</th>
-                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-200 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">Site</th>
-                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-200 text-left text-xs font-bold text-gray-800 uppercase tracking-wider" width="110px">Actions</th>
+
+          <table class="text-left w-full">
+            <thead class="flex w-full">
+              <tr class="flex w-full">
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-200 text-left text-xs font-bold text-gray-800 uppercase tracking-wider w-full">Lab Number</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-200 text-left text-xs font-bold text-gray-800 uppercase tracking-wider w-full">Requested on</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-200 text-left text-xs font-bold text-gray-800 uppercase tracking-wider w-full">Requested By</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-200 text-left text-xs font-bold text-gray-800 uppercase tracking-wider w-full">Created By</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-200 text-left text-xs font-bold text-gray-800 uppercase tracking-wider w-full">Site</th>
+                <th class="px-6 py-3 text-center border-b-2 border-gray-200 bg-gray-200  text-xs font-bold text-gray-800 uppercase tracking-wider w-full" >Actions</th>
               </tr>
             </thead>
-            <tbody>        
+            <!-- Remove the nasty inline CSS fixed height on production and replace it with a CSS class — this is just for demonstration purposes! -->
+            <tbody class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" style="height:70vh;">
+           
+          
               {#each $orders as order }
-              <tr class=" hover:bg-gray-200">
-                <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold  text-sm"><a href="https://dev.npes.ml/OpenELIS-Global/SampleEdit?type=readwrite&accessionNumber={order.labno}" target="_blank">{order.labno}</a></td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold   text-sm">{moment(order.request_time,'YYYY-MM-DDTHH:mm').format('DD/MM/YYYY HH:mm')}</td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold  text-sm">{order.requester}</td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold text-sm">{order.created_by}</td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold  text-sm">{order.site}</td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold  text-sm">Edit</td>
+              <tr class="flex w-full mb-4">
+                <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold  text-sm  w-full"><a href="https://dev.npes.ml/OpenELIS-Global/SampleEdit?type=readwrite&accessionNumber={order.labno}" target="_blank">{order.labno}</a></td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold  text-sm  w-full">{moment(order.request_time,'YYYY-MM-DDTHH:mm').format('DD/MM/YYYY HH:mm')}</td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold  text-sm  w-full">{order.requester}</td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold  text-sm  w-full">{order.created_by}</td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold  text-sm  w-full">{order.site}</td>
+                <td class="px-5 py-5 text-center border-b border-gray-200 bg-white font-semibold  text-sm  w-full">Edit</td>
               </tr>
               {/each} 
             </tbody>
@@ -117,3 +120,4 @@ function newOrderPopUp(){
 <Modal/>
 
 {/if}
+
