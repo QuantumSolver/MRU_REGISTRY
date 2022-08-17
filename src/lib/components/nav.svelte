@@ -1,17 +1,7 @@
 <script>
     import { Dropdown ,DropdownItem, Navbar, NavLi, NavUl, NavHamburger ,Avatar, DropdownDivider,DropdownHeader} from "flowbite-svelte";
-    import { Logout ,Home, Clipboard } from "svelte-heros";
+    import { Logout  } from "svelte-heros";
     import { goto } from '$app/navigation';
-
-
-    
-let avatar = {
-    src:'',
-    alt: 'My avatar',
-    size: 12,
-    border: true,
-    round: true
-};
 
 </script>
 
@@ -32,12 +22,12 @@ let avatar = {
     <NavHamburger on:click={toggle} />
 </div>
 <NavUl {hidden}>
-    <NavLi sveltekit:prefetch href="/" active={true}>Home</NavLi>
-    <NavLi sveltekit:prefetch href="/registry">Registry</NavLi> 
+    <NavLi sveltekit:prefetch href="/" >Home</NavLi>
+    <NavLi sveltekit:prefetch href="/registry" >Registry</NavLi> 
       
-      <Dropdown label="Epidemiology" placement="bottom-start" inline={true}>  
+      <Dropdown label="Epidemiology" placement="bottom-start" inline={true} >  
         <DropdownItem>Epi-Data</DropdownItem>
-        <DropdownItem on:click={()=>goto("/analyzer/plate-setup")} >Analyzer plate setup</DropdownItem>
+        <DropdownItem on:click={()=>{goto("/analyzer/plate-setup")}} >Analyzer plate setup</DropdownItem>
         <DropdownItem>Analyzer Results</DropdownItem>
         <DropdownItem>Reports</DropdownItem>
     </Dropdown>

@@ -1,10 +1,9 @@
 <script>
     let hover =''
-    import { plate  } from "./store";
-    import { setNull } from "./store";
+    import { plate  } from "./store-e92.js";
+    import { setNull } from "./store-e92.js";
     let plateType = '1'
 import { Input, Label , ButtonGroup , Button ,ButtonGroupItem } from 'flowbite-svelte'
-import HalfRenRight from './components/half_ren_right.svelte';
     function zer0(num) {
         return String(num).padStart(4, '0');
     }
@@ -52,68 +51,12 @@ $: firstNum = firstNum.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')
 </script>
 
                 
-  
-
-  <div class="container mx-auto px-4 sm:px-8">
-    
-    <div class="py-8">
-      
-    <h1 class="inline font-medium text-3xl ">Plate Setup</h1>
-    <div class="inline-block mt-2 md:ml-10">
-        <ButtonGroup>
-                <ButtonGroupItem on:click={()=>{plateType = '1'}} class='border-b-{plateType == '1' ? '4  border-b-blue-500' : '0'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300' >Half Ren Right</ButtonGroupItem>
-                <ButtonGroupItem on:click={()=>{plateType = '2'}} class='border-b-{plateType == '2' ? '4  border-b-blue-500' : '0'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300' >46 Sample</ButtonGroupItem>
-                <ButtonGroupItem on:click={()=>{plateType = '3'}} class='border-b-{plateType == '3' ? '4  border-b-blue-500' : '0'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300'>E 92 Sample</ButtonGroupItem>
-                <ButtonGroupItem on:click={()=>{plateType = '4'}} class='border-b-{plateType == '4' ? '4  border-b-blue-500' : '0'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300'>RPN 92 Sample</ButtonGroupItem>
-        </ButtonGroup>
-        </div>        
-	<div class="container">
-</div>
-      
-       <div >
-
-        
-        
-        <div class="inline-block align-top my-5 mr-10   p-10 border-2 border-gray-100 rounded-lg shadow-xl  ">
-            <!-- 
-               
-               FORM STARTS
-               
-             -->
-                
-            <label for="starting-well" class="block mt-3  ml-2 text-sm font-medium text-gray-700">Starting Well</label>                               
-            <input id="starting-well" type="text" min="0" max="9999" maxlength='4' bind:value="{firstNum}" class="focus:ring-indigo-500  mb-5 ml-2 focus:border-blue-500 text-left  w-1/10 rounded-none  rounded-r-md rounded-l-md sm:text-sm border-gray-300">
-
-            <div class='mb-6'>
-                <Label for='large-input' class='block mb-2'>Large input</Label>
-                <Input id="large-input" size="lg" placeholder="Large input" />
-            </div>
-            <div class='mb-6'>
-                <Label for='default-input' class='block mb-2'>Default input</Label>
-                <Input id='default-input' placeholder="Default input" />
-            </div>
-            <div class='mb-6'>
-                <Label for='large-input' class='block mb-2'>Small input</Label>
-                <Input size="sm" placeholder="Small input" label="Small input"/>
-            </div>
-            
-             <!-- 
-   
-               FORM ENDS
-   
-              -->
-           </div>
-
-
-        <div class="inline-block my-5 ">
-            
-            <HalfRenRight {firstNum} />
          <!-- 
             
             PLATE STARTS
             
           -->
-             <!-- <table class="shadow-xl bg-white inset-20 ">
+             <table class="shadow-xl bg-white inset-20 ">
                             <tr class="bg-gray-100">
                                 <th class="px-6 py-2 text-base text-gray-700  border-b border-r border-gray-200 ">
                                      
@@ -265,21 +208,11 @@ $: firstNum = firstNum.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')
                  
             </th>
         </tr>
-                </table> -->
+                </table>
 
           <!-- 
 
             PLATE ENDS
 
            -->
-        </div>
-
-
-
-
-
-
-      </div>
-    </div>
-  </div>
   
