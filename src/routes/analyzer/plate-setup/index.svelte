@@ -59,6 +59,7 @@ $: firstNum = firstNum.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')
     <div class="py-8">
       
     <h1 class="inline font-medium text-3xl ">Plate Setup</h1>
+    
     <div class="inline-block mt-2 md:ml-10">
         <ButtonGroup>
                 <ButtonGroupItem on:click={()=>{plateType = '1'}} class='border-b-{plateType == '1' ? '4  border-b-blue-500' : '0'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300' >Half Ren Right</ButtonGroupItem>
@@ -282,4 +283,6 @@ $: firstNum = firstNum.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')
       </div>
     </div>
   </div>
+  
+
   

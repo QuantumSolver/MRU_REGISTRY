@@ -1,5 +1,5 @@
 <script>
-    import { Toast  } from "flowbite-svelte";
+    import { Toast   , Modal ,Button} from "flowbite-svelte";
 	import { CheckCircle  } from 'svelte-heros';
     let show = false;
     let counter = 5;
@@ -15,9 +15,9 @@
 }       show = false;
         counter = 5;
     }
-  import { Modal ,Button} from 'flowbite-svelte'
     let defaultModal =false;
-  </script>
+
+</script>
 <div class="m-10">
 
   <Button on:click={() => (defaultModal = true)}>Default modal</Button>
@@ -37,6 +37,4 @@
         <CheckCircle slot="icon"/> Autohide in {counter}s.
     </Toast>
 {/if}
-
 </div>
- 
