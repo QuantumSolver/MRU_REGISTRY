@@ -1,12 +1,17 @@
 <script>
+    import epi from 'epi-week'; 
+    import moment from 'moment';
+    let batchDate = moment.now() 
+    let epiWk = epi(new Date(batchDate)).week
     let plateType = '1'
-    import { Input, Label , ButtonGroup , Button ,ButtonGroupItem } from 'flowbite-svelte'
+    import { Input, Label , ButtonGroup , Button ,ButtonGroupItem ,Datepicker } from 'flowbite-svelte'
     import HalfRenRight from './components/half_ren_right.svelte';
     import HalfSplit from './components/46_sample.svelte';
     import E_92 from "./components/e_92.svelte";
     import Rpn_92 from "./components/rpn_92.svelte";
     let firstNum = '' 
-    let secondNum = '' 
+    let secondNum = ''
+    let BDate 
 </script>
 
                 
@@ -62,7 +67,11 @@
                 <Input size="sm" inputClass="w-22 rounded-lg" /></div>
                 <div class="inline-block">
                 <Label for='large-input' class='block mb-2'>Epi-Week</Label>
-                <Input size="sm" inputClass="w-20 rounded-lg" /></div>
+                <Input value={epiWk} size="sm" inputClass="w-20 rounded-lg" />
+                <Datepicker value={BDate}  datepickerFormat="dd/mm/yyyy"  />
+                {BDate}
+                </div>
+                  
             </div>
             
              <!-- 
