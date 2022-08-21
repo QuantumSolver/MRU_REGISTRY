@@ -1,17 +1,30 @@
 <script>
     import epi from 'epi-week'; 
     import moment from 'moment';
-    let batchDate = moment.now() 
-    let epiWk = epi(new Date(batchDate)).week
-    let plateType = '1'
-    import { Input, Label , ButtonGroup , Button ,ButtonGroupItem ,Datepicker } from 'flowbite-svelte'
     import HalfRenRight from './components/half_ren_right.svelte';
     import HalfSplit from './components/46_sample.svelte';
     import E_92 from "./components/e_92.svelte";
     import Rpn_92 from "./components/rpn_92.svelte";
+    import { Input, Label , ButtonGroup , Button ,ButtonGroupItem } from 'flowbite-svelte'
+    import {Plus , Save} from 'svelte-heros'
+    
+
     let firstNum = '' 
     let secondNum = ''
-    let BDate 
+    let batchID
+    let batchDate = moment().format('YYYY-MM-DD')
+    let plateType = '1'
+
+
+    
+    async function fetchBatchID (){
+      let req = await fetch('/analyzer/plate-setup/api')
+       batchID = (await req.json()).id
+    }
+
+
+    $: epiWk = epi(new Date(moment(batchDate).format('YYYY-MM-DD') )).week
+    
 </script>
 
                 
@@ -25,10 +38,10 @@
     
     <div class="inline-block mt-2 md:ml-10">
         <ButtonGroup>
-                <ButtonGroupItem on:click={()=>{plateType = '1'}} class='border-b-{plateType == '1' ? '4  border-b-blue-500' : '4'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300' >Half Ren Right</ButtonGroupItem>
-                <ButtonGroupItem on:click={()=>{plateType = '2'}} class='border-b-{plateType == '2' ? '4  border-b-blue-500' : '4'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300' >46 Sample</ButtonGroupItem>
-                <ButtonGroupItem on:click={()=>{plateType = '3'}} class='border-b-{plateType == '3' ? '4  border-b-blue-500' : '4'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300'>E 92 Sample</ButtonGroupItem>
-                <ButtonGroupItem on:click={()=>{plateType = '4'}} class='border-b-{plateType == '4' ? '4  border-b-blue-500' : '4'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300'>RPN 92 Sample</ButtonGroupItem>
+                <ButtonGroupItem on:click={()=>{plateType = '1'}} class='{plateType == '1' ? 'border-b-4  border-b-blue-500' : '4 border-b-gray-100'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300' >Half Ren Right</ButtonGroupItem>
+                <ButtonGroupItem on:click={()=>{plateType = '2'}} class='{plateType == '2' ? 'border-b-4  border-b-blue-500' : '4 border-b-gray-100'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300' >46 Sample</ButtonGroupItem>
+                <ButtonGroupItem on:click={()=>{plateType = '3'}} class='{plateType == '3' ? 'border-b-4  border-b-blue-500' : '4 border-b-gray-100'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300'>E 92 Sample</ButtonGroupItem>
+                <ButtonGroupItem on:click={()=>{plateType = '4'}} class='{plateType == '4' ? 'border-b-4  border-b-blue-500' : '4 border-b-gray-100'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300'>RPN 92 Sample</ButtonGroupItem>
         </ButtonGroup>
        
         </div>        
@@ -47,39 +60,69 @@
              -->  
 
              
-             <fieldset class="inline-block border-2 border-slate-400  rounded-lg p-2 shadow-md"><legend class="text-sm font-black">Starting Well</legend>
-                <div  class="inline-block">
+                <fieldset class="inline-block border-2 border-slate-400  rounded-lg p-2 shadow-md"><legend class="text-sm font-black">Starting Well</legend>
+                   
+                  
+                 {#if plateType == '1'}
+                 
+                 <div class="inline-block">
+                   <label for="second-starting-well" class="text-xs font-semibold">A-7</label>                               
+                   <Input id="second-starting-well" type="text" min="0" max="9999" maxlength='4' size="sm" bind:value={secondNum} inputClass="w-16  mx-2 focus:border-blue-500 text-right  rounded-none  rounded-r-md rounded-l-md sm:text-sm border-gray-300" />
+                 </div> 
+                 {:else if  plateType == '2'}    
+                  <div  class="inline-block">
                     <label for="starting-well" class="text-xs font-semibold">A-1</label>                               
-                    <input id="starting-well" type="text" min="0" max="9999" maxlength='4' bind:value="{firstNum}" class="w-16 mx-2 focus:border-blue-500 text-right rounded-none  rounded-r-md rounded-l-md sm:text-sm border-gray-300">
-                    
-                      </div>  
+                    <Input id="starting-well" type="text" min="0" max="9999" maxlength='4' size="sm" bind:value={firstNum} inputClass="w-16  mx-2 focus:border-blue-500 text-right  rounded-none  rounded-r-md rounded-l-md sm:text-sm border-gray-300" />
+                  </div>  
+                  
+                  <div class="inline-block">
+                    <label for="second-starting-well" class="text-xs font-semibold">A-7</label>                               
+                    <Input id="second-starting-well" type="text" min="0" max="9999" maxlength='4' size="sm" bind:value={secondNum} inputClass="w-16  mx-2 focus:border-blue-500 text-right  rounded-none  rounded-r-md rounded-l-md sm:text-sm border-gray-300" />
+                  </div> 
+                 {:else}
+                 <div  class="inline-block">
+                  <label for="starting-well" class="text-xs font-semibold">A-1</label>                               
+                  <Input id="starting-well" type="text" min="0" max="9999" maxlength='4' size="sm" bind:value={firstNum} inputClass="w-16  mx-2 focus:border-blue-500 text-right  rounded-none  rounded-r-md rounded-l-md sm:text-sm border-gray-300" />
+                 </div>  
+                 {/if} 
+                    <!-- <div  class="inline-block">
+                      <label for="starting-well" class="text-xs font-semibold">A-1</label>                               
+                      <Input id="starting-well" type="text" min="0" max="9999" maxlength='4' size="sm" bind:value={firstNum} inputClass="w-16  mx-2 focus:border-blue-500 text-right  rounded-none  rounded-r-md rounded-l-md sm:text-sm border-gray-300" />
+                    </div>  
                       
-                      <div class="inline-block">
-                          <label for="second-starting-well" class="text-xs font-semibold">A-7</label>                               
-                    <input id="second-starting-well" type="text" min="0" max="9999" maxlength='4' bind:value="{secondNum}" class="w-16  mx-2 focus:border-blue-500 text-right  rounded-none  rounded-r-md rounded-l-md sm:text-sm border-gray-300">
-        
+                    <div class="inline-block">
+                      <label for="second-starting-well" class="text-xs font-semibold">A-7</label>                               
+                      <Input id="second-starting-well" type="text" min="0" max="9999" maxlength='4' size="sm" bind:value={secondNum} inputClass="w-16  mx-2 focus:border-blue-500 text-right  rounded-none  rounded-r-md rounded-l-md sm:text-sm border-gray-300" />
                     </div> 
+                 -->
+                
                 </fieldset>
 
             <div class='my-6'>
-                <div class="inline-block">
+              <div class="block">
                 <Label for='large-input' class='block mb-2'>Batch Number</Label>
-                <Input size="sm" inputClass="w-22 rounded-lg" /></div>
-                <div class="inline-block">
-                <Label for='large-input' class='block mb-2'>Epi-Week</Label>
-                <Input value={epiWk} size="sm" inputClass="w-20 rounded-lg" />
-                <Datepicker value={BDate}  datepickerFormat="dd/mm/yyyy"  />
-                {BDate}
+                <Input size="sm" bind:value={batchID} inputClass="w-22  rounded-lg mb-2" />
+                <div class="inline-block align-middle md:float-right "> 
+                  <Button size='xs' on:click={fetchBatchID} ><Plus size='15' /></Button>
                 </div>
-                  
+              </div>
+                
+              <div class="inline-block">
+                <Label for='bd' class='block mb-2'>Batch Date</Label>
+                <Input id='bd' type='date' size="sm" inputClass="w-40 rounded-lg" bind:value={batchDate} />
             </div>
-            
+                <div class="inline-block">
+                  <Label for='large-input' class='block mb-2'>Epi-Week</Label>
+                  <Input value={epiWk} size="sm" inputClass="w-20 rounded-lg" />
+                </div>
+            </div>
+            <Button ><Save size='15'/> <span class="pl-1">Save</span> </Button>
              <!-- 
    
                FORM ENDS
    
               -->
-           </div>
+        </div>
 
 
         <div class="inline-block my-5 ">

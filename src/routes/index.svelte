@@ -39,6 +39,3 @@
 {/if}
 </div>
 
-
-<br>
-<Datepicker value={dates} name="start"  />
