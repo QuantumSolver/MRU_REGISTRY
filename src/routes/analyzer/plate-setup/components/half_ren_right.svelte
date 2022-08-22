@@ -2,23 +2,16 @@
     let hover =''
     import { plate  } from "./half_rr.js";
     import { setNull } from "./half_rr.js";
+    import { selectedField } from "../store.js";
     function zer0(num) {
         return String(num).padStart(4, '0');
     }
    export let firstNum = '' 
     $: $plate[0].c7 = zer0(firstNum)
-
-    // $: if($plate[0].c7 == '0000'){ setNull()}
     
     $: if($plate[0].c7 != '0000' ||$plate[0].c7 == '0000'  ){
         for(let i = 0; i < $plate.length; i++){
               
-            // $plate[0].c2 = zer0(parseInt($plate[0].c1)+8)  
-            // $plate[0].c3 = zer0(parseInt($plate[0].c2)+8)  
-            // $plate[0].c4 = zer0(parseInt($plate[0].c3)+8)  
-            // $plate[0].c5 = zer0(parseInt($plate[0].c4)+8)  
-            // $plate[0].c6 = zer0(parseInt($plate[0].c5)+8)  
-            // $plate[0].c7 = zer0(parseInt($plate[0].c6)+8)  
             $plate[0].c8 = zer0(parseInt($plate[0].c7)+8)  
             $plate[0].c9 = zer0(parseInt($plate[0].c8)+8)  
             $plate[0].c10 = zer0(parseInt($plate[0].c9)+8)  
@@ -26,12 +19,6 @@
             $plate[0].c12 = zer0(parseInt($plate[0].c11)+8)
             
              if(i > 0){  
-                // $plate[i].c1 = zer0(parseInt($plate[i-1].c1)+1)
-                // $plate[i].c2 = zer0(parseInt($plate[i-1].c2)+1)
-                // $plate[i].c3 = zer0(parseInt($plate[i-1].c3)+1)
-                // $plate[i].c4 = zer0(parseInt($plate[i-1].c4)+1)
-                // $plate[i].c5 = zer0(parseInt($plate[i-1].c5)+1)
-                // $plate[i].c6 = zer0(parseInt($plate[i-1].c6)+1)
                 $plate[i].c7 = zer0(parseInt($plate[i-1].c7)+1)
                 $plate[i].c8 = zer0(parseInt($plate[i-1].c8)+1)
                 $plate[i].c9 = zer0(parseInt($plate[i-1].c9)+1)
@@ -125,7 +112,7 @@ $: firstNum = firstNum.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')
     </td>
     <td class="px-6 py-4 cursor-pointer  w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c1'?'bg-gray-100':''} "
      on:mouseenter="{()=>hover = 'c1'}" on:mouseleave="{()=>hover = ''}" >
-        {p.c1}
+        {p.c1}  
     </td>
     <td class="px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b  border-gray-200 {hover=='c2'?'bg-gray-100':''} "
     on:mouseenter="{()=>hover = 'c2'}" on:mouseleave="{()=>hover = ''}">
@@ -147,28 +134,28 @@ $: firstNum = firstNum.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')
     on:mouseenter="{()=>hover = 'c6'}" on:mouseleave="{()=>hover = ''}">
         {p.c6}
     </td>
-    <td class="px-6 py-4  cursor-pointer w-max text-sm text-gray-700 text-right border-r border-b border-l-4 border-gray-200 {hover=='c7'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c7'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'7' ? ' bg-blue-200' : ''	} px-6 py-4  cursor-pointer w-max text-sm text-gray-700 text-right border-r border-b border-l-4 border-gray-200 {hover=='c7'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c7 ; $selectedField.iterator= i ; $selectedField.column = 7 ; $selectedField.location = p.row+'7' }} on:mouseenter="{()=>hover = 'c7'}" on:mouseleave="{()=>hover = ''}">
         {p.c7}
     </td>
-    <td class="px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c8'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c8'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'8' ? ' bg-blue-200' : ''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c8'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c8 ; $selectedField.iterator= i ; $selectedField.column = 8 ; $selectedField.location = p.row+'8' }} on:mouseenter="{()=>hover = 'c8'}" on:mouseleave="{()=>hover = ''}">
         {p.c8}
     </td>
-    <td class="px-6 py-4  cursor-pointer w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c9'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c9'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'9' ? ' bg-blue-200' : ''	} px-6 py-4  cursor-pointer w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c9'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c9 ; $selectedField.iterator= i ; $selectedField.column = 9 ; $selectedField.location = p.row+'9' }} on:mouseenter="{()=>hover = 'c9'}" on:mouseleave="{()=>hover = ''}">
         {p.c9}
     </td>
-    <td class="px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c10'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c10'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'10' ? ' bg-blue-200' : ''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c10'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c10 ; $selectedField.iterator= i ; $selectedField.column = 10 ; $selectedField.location = p.row+'10' }} on:mouseenter="{()=>hover = 'c10'}" on:mouseleave="{()=>hover = ''}">
         {p.c10}
     </td>
-    <td class="px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c11'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c11'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'11' ? ' bg-blue-200' : ''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c11'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c11 ; $selectedField.iterator= i ; $selectedField.column = 11 ; $selectedField.location = p.row+'11' }} on:mouseenter="{()=>hover = 'c11'}" on:mouseleave="{()=>hover = ''}">
         {p.c11}
     </td>
-    <td class="px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-b border-r  border-gray-200 {hover=='c12'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c12'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'12' ? ' bg-blue-200' : ''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-b border-r  border-gray-200 {hover=='c12'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c12 ; $selectedField.iterator= i ; $selectedField.column = 12 ; $selectedField.location = p.row+'12' }} on:mouseenter="{()=>hover = 'c12'}" on:mouseleave="{()=>hover = ''}">
         {p.c12}
     </td>
     <td class="px-6 py-4 text-sm text-gray-700 bg-gray-100 border-r border-gray-200">
@@ -181,7 +168,7 @@ $: firstNum = firstNum.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')
      
     </td>
     <td class=" border-r border-b border-gray-200 {hover=='c1'?'bg-gray-100':''} "
-     on:mouseenter="{()=>hover = 'c1'}" on:mouseleave="{()=>hover = ''}" >
+    on:mouseenter="{()=>hover = 'c1'}" on:mouseleave="{()=>hover = ''}" >
        
     </td>
     <td class=" border-r border-b  border-gray-200 {hover=='c2'?'bg-gray-100':''} "
@@ -217,15 +204,15 @@ $: firstNum = firstNum.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')
        
     </td>
     <td class="  border-r border-b border-gray-200 {hover=='c10'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c10'}" on:mouseleave="{()=>hover = ''}">
+     on:mouseenter="{()=>hover = 'c10'}" on:mouseleave="{()=>hover = ''}">
        
     </td>
     <td class="  border-r border-b border-gray-200 {hover=='c11'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c11'}" on:mouseleave="{()=>hover = ''}">
+     on:mouseenter="{()=>hover = 'c11'}" on:mouseleave="{()=>hover = ''}">
        
     </td>
     <td class="  border-b border-r  border-gray-200 {hover=='c12'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c12'}" on:mouseleave="{()=>hover = ''}">
+     on:mouseenter="{()=>hover = 'c12'}" on:mouseleave="{()=>hover = ''}">
         
     </td>
     <td class="p-2 bg-gray-100 border-r border-gray-200">
@@ -239,7 +226,7 @@ $: firstNum = firstNum.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')
         {p.row}
     </td>
     <td class="px-6 py-4 cursor-pointer  w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c1'?'bg-gray-100':''} "
-     on:mouseenter="{()=>hover = 'c1'}" on:mouseleave="{()=>hover = ''}" >
+    on:mouseenter="{()=>hover = 'c1'}" on:mouseleave="{()=>hover = ''}" >
         {p.c1}
     </td>
     <td class="px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b  border-gray-200 {hover=='c2'?'bg-gray-100':''} "
@@ -262,28 +249,28 @@ $: firstNum = firstNum.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')
     on:mouseenter="{()=>hover = 'c6'}" on:mouseleave="{()=>hover = ''}">
         {p.c6}
     </td>
-    <td class="px-6 py-4  cursor-pointer w-max text-sm text-gray-700 text-right border-r border-b border-l-4 border-gray-200 {hover=='c7'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c7'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'7' ? ' bg-blue-200' : ''	} px-6 py-4  cursor-pointer w-max text-sm text-gray-700 text-right border-r border-b border-l-4 border-gray-200 {hover=='c7'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c7 ; $selectedField.iterator= i ; $selectedField.column = 7 ; $selectedField.location = p.row+'7' }} on:mouseenter="{()=>hover = 'c7'}" on:mouseleave="{()=>hover = ''}">
         {p.c7}
     </td>
-    <td class="px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c8'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c8'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'8' ? ' bg-blue-200' : ''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c8'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c8 ; $selectedField.iterator= i ; $selectedField.column = 8 ; $selectedField.location = p.row+'8' }} on:mouseenter="{()=>hover = 'c8'}" on:mouseleave="{()=>hover = ''}">
         {p.c8}
     </td>
-    <td class="px-6 py-4  cursor-pointer w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c9'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c9'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'9' ? ' bg-blue-200' : ''	} px-6 py-4  cursor-pointer w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c9'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c9 ; $selectedField.iterator= i ; $selectedField.column = 9 ; $selectedField.location = p.row+'9' }} on:mouseenter="{()=>hover = 'c9'}" on:mouseleave="{()=>hover = ''}">
         {p.c9}
     </td>
-    <td class="px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c10'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c10'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'10' ? ' bg-blue-200' : ''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c10'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c10 ; $selectedField.iterator= i ; $selectedField.column = 10 ; $selectedField.location = p.row+'10' }} on:mouseenter="{()=>hover = 'c10'}" on:mouseleave="{()=>hover = ''}">
         {p.c10}
     </td>
-    <td class="px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c11'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c11'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'11' ? ' bg-blue-200' : ''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c11'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c11; $selectedField.iterator= i ; $selectedField.column = 1 ; $selectedField.location = p.row+'11' }} on:mouseenter="{()=>hover = 'c11'}" on:mouseleave="{()=>hover = ''}">
         {p.c11}
     </td>
-    <td class="px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-b border-r  border-gray-200 {hover=='c12'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c12'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'12' ? ' bg-blue-200' : ''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-b border-r  border-gray-200 {hover=='c12'?'bg-gray-100':''} "
+    on:click={()=> {if(p.c12  == 'CNEG' || p.c12  == 'CPOS'){} else{ $selectedField.id= p.c12 ; $selectedField.iterator= i ; $selectedField.column = 12 ; $selectedField.location = p.row+'12' }}} on:mouseenter="{()=>hover = 'c12'}" on:mouseleave="{()=>hover = ''}">
         {p.c12}
     </td>
     <td class="px-6 py-4 text-sm text-gray-700 bg-gray-100 border-r border-gray-200">

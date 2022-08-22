@@ -1,5 +1,5 @@
 <script>
-    import { Toast   , Modal ,Button , Datepicker} from "flowbite-svelte";
+    import { Toast   , Modal ,Button } from "flowbite-svelte";
 	import { CheckCircle  } from 'svelte-heros';
     let show = false;
     let counter = 5;
@@ -38,4 +38,3 @@
     </Toast>
 {/if}
 </div>
-
