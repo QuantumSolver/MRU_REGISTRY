@@ -1,11 +1,24 @@
 import pool from '$lib/utils/pool'
 
 
-export async function get(){
+export async function get({url}){
+
+  let batchId = url.searchParams.get('batch')
+  if(batchId){
+
+    let query = await pool.query(`select * from registry.batch where id = '${batchId}'`)
+    return{
+      body: await JSON.parse( query.rowCount > 0 ? query.rows[0].plate : '{}')
+    }
+
+
+
+  }else
+   {
   let query = await pool.query(`select nextval('registry.batch_seq'::regclass) id`)
   return{
     body: await query.rows[0]
-  }
+  }}
 }
 
 

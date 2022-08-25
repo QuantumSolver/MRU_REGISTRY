@@ -5,14 +5,14 @@
     import HalfSplit from './components/46_sample.svelte';
     import E_92 from "./components/e_92.svelte";
     import Rpn_92 from "./components/rpn_92.svelte";
-    import { Input, Label , ButtonGroup , Button ,ButtonGroupItem , Iconinput ,Spinner} from 'flowbite-svelte'
+    import { Input, Label , ButtonGroup , Button ,ButtonGroupItem ,Spinner ,Toggle , Checkbox } from 'flowbite-svelte'
 	  import {  fly } from 'svelte/transition';
     import {Plus , Save , ArrowLeft, Search} from 'svelte-heros'
     import { plate as hr } from './components/half_rr'
     import { plate as s46 } from './components/store-46_samp'
     import { plate as e92 } from './components/store-e92'
     import { plate as rpn } from './components/store-rpn92'
-    import {selectedField} from './store'
+    import {selectedField ,orderMap} from './store'
     
 
     let firstNum = '' 
@@ -20,7 +20,8 @@
     let batchID
     let batchDate = moment().format('YYYY-MM-DD')
     let plateType = '1'
-
+    let fetchingPat = false
+    let checked = true
 
     
     async function fetchBatchID (){
@@ -43,6 +44,20 @@
 
 saved = true
     }
+
+    async function getBatch (){
+
+    let req = await fetch('/analyzer/plate-setup/api?batch='+ batchData.batch)
+    batchData = await req.json()
+    plateType = batchData.plateType
+    plate = batchData.plate
+    firstNum = batchData.a1
+    secondNum = batchData.a7
+  
+  
+
+// saved = true
+  }
 
     $: epiWk = epi(new Date(moment(batchDate).format('YYYY-MM-DD') )).week
     $: plate = plateType=='1'? $hr : plateType=='2'? $s46 : plateType=='3' ? $e92 : $rpn
@@ -79,7 +94,7 @@ saved = true
     
   const onKeyPress = e => {
     if (e.charCode === 13){
-      alert($selectedField.barcode) 
+      fetchPatient()
     }
   };
 
@@ -104,6 +119,46 @@ function prevWell(){
   $selectedField.location= batchData.plate[$selectedField.iterator].row +  String($selectedField.column)}
 }
  
+async function fetchPatient(){
+    fetchingPat = true
+    let req = await fetch('/analyzer/plate-setup/api/patient?labno='+$selectedField.barcode)
+    let patient = await req.json()
+    if(patient.length > 0){
+    $orderMap[`${$selectedField.id}`] = {
+                                        
+                                        id: $selectedField.id,
+                                        barcode:$selectedField.barcode ,
+                                        well: $selectedField.location,
+                                        order: `${patient[0].order}` ,
+                                        patient_id: `${patient[0].patient_id}`,
+                                        patient_name: `${patient[0].patient_name}`,
+                                        mapped: 'true'
+                                      }
+                                        fetchingPat = false
+                                        if(checked){
+                                          nextWell()
+                                        }
+  
+    } else {
+    $orderMap[`${$selectedField.id}`] = {
+                                        
+                                        id: $selectedField.id,
+                                        barcode:$selectedField.barcode ,
+                                        well: $selectedField.location,
+                                        order: '' ,
+                                        patient_id: '',
+                                        patient_name: '',
+                                        mapped:'not found' 
+                                        
+                                      }  
+                                        fetchingPat = false
+                                        if(checked){
+                                          nextWell()
+                                        }
+    }
+    
+
+}
 
 </script>
 
@@ -155,17 +210,48 @@ function prevWell(){
                 <div class="block">
                   <Label for='barcode' class='block my-2'>Barcode</Label>
                   <Input id='barcode' on:keypress={onKeyPress} type='text' size="sm" inputClass="w-36 rounded-lg" bind:value={$selectedField.barcode} />
-                  <Button size='sm' class='inline-block ml-2 align-middle' ><Search size='15'/></Button>
+                  <Button size='sm' on:click={fetchPatient}  class='inline-block ml-2 align-middle' >
+                  {#if fetchingPat}
+                  <Spinner size="4"/>
+                  {:else}
+                  <Search size='15'/>
+                  {/if}
+                  </Button>
+               
                 </div>
-                <div class="gap-3 mt-5">
+
+                <div>
+                                
+                {#if $orderMap[`${$selectedField.id}`] !== undefined}
+                  {#if $orderMap[`${$selectedField.id}`].mapped == 'true'}
+                  <p class="text-sm font-semibold dark:text-white my-2">{$orderMap[`${$selectedField.id}`].patient_name}</p>
+                  <p class="text-sm font-semibold dark:text-white my-2">{$orderMap[`${$selectedField.id}`].barcode}</p>
+                  {:else if $orderMap[`${$selectedField.id}`].mapped == 'not found'}
+                  <p class="text-sm font-semibold dark:text-white my-2">No order found</p>
+                  <p class="text-sm font-semibold dark:text-white my-2">{$orderMap[`${$selectedField.id}`].barcode}</p>
+                  {/if}
+                
+                  {:else}
                   
-                <Button  on:click={prevWell} class='inline-block w-1/3'>Prev</Button>
-                <Button  on:click={nextWell} class='inline-block w-1/3'>Next</Button>
+                  <div class="text-sm font-semibold dark:text-white my-2">&nbsp;</div>
+                  <div class="text-sm font-semibold dark:text-white my-2">&nbsp;</div>
+                  
+                  {/if}
                 </div>
-                <!-- <div class="inline-block">
-                <Spinner size="5"/>
+
+                <div class=" mt-4">
+                  
+                <Toggle size="small" bind:checked >Auto Next </Toggle>
                 </div>
-                 -->
+                <div class=" mt-5">
+                  
+                <ButtonGroup>
+                        <ButtonGroupItem on:click={prevWell}>Prev</ButtonGroupItem>
+                        <ButtonGroupItem >Save</ButtonGroupItem>
+                        <ButtonGroupItem  on:click={nextWell}>Next</ButtonGroupItem>
+                 </ButtonGroup>
+              
+                </div>
 
 
                </div>
@@ -205,7 +291,10 @@ function prevWell(){
                       <Label for='large-input' class='block mb-2'>Batch Number</Label>
                       <Input size="sm" bind:value={batchID} inputClass="w-22  rounded-lg mb-2" />
                       <div class="inline-block align-middle "> 
-                        <Button size='xs' on:click={fetchBatchID} class='sm:ml-2' ><Plus size='15' /></Button>
+                        <Button size='xs' on:click={getBatch}  ><Search size='15' /></Button>
+                      </div>
+                      <div class="inline-block align-middle "> 
+                        <Button size='xs' on:click={fetchBatchID}  ><Plus size='15' /></Button>
                       </div>
                     </div>
                       
@@ -255,6 +344,4 @@ function prevWell(){
       </div>
     </div>
   </div>
-  
-
   
