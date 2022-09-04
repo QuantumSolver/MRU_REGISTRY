@@ -5,9 +5,9 @@
 
 </script>
 
-<Navbar let:hidden let:toggle navClass='border-b-2 shadow-lg py-2 w-full'>
+<Navbar let:hidden let:toggle navClass='border-b-2 shadow-lg py-2 w-full '>
 
-<div class="flex md:order-2">
+<div class="flex md:order-2 ">
     <Dropdown arrowIcon={false} inline={true}>
         <Avatar  slot="label" />
         <DropdownHeader>
@@ -28,7 +28,7 @@
       <Dropdown label="Epidemiology" placement="bottom-start" inline={true} >  
         <DropdownItem>Epi-Data</DropdownItem>
         <DropdownItem on:click={()=>{goto("/analyzer/plate-setup")}} >Analyzer plate setup</DropdownItem>
-        <DropdownItem>Analyzer Results</DropdownItem>
+        <DropdownItem on:click={()=>{goto("/analyzer/results")}}>Analyzer Results</DropdownItem>
         <DropdownItem>Reports</DropdownItem>
     </Dropdown>
 

@@ -13,9 +13,7 @@ export async function get({url}){
       --plate::json,
       plate_type, 
       a1 ,
-      a7 ,
-      test,
-      orders::json 
+      a7  
     from 
       registry.batch 
     where 
@@ -61,9 +59,9 @@ export async function post({request}){
     let addBatch = await pool.query(`
             insert into 
                 registry.batch 
-                  (id,epi_week,batch_date, plate , a1,a7 ,plate_type ,orders ,test ) 
+                  (id,epi_week,batch_date, plate , a1,a7 ,plate_type  ) 
               values
-                ('${batch.batch}','${batch.epiwk}','${batch.date}','${batchString}','${batch.a1}','${batch.a7}','${batch.plateType}' ,'{}','${batch.test}')
+                ('${batch.batch}','${batch.epiwk}','${batch.date}','${batchString}','${batch.a1}','${batch.a7}','${batch.plateType}')
            `)
     return{
    status:200
@@ -72,8 +70,9 @@ export async function post({request}){
   
 
 
-export async function put({request}){
+export async function put({request , url}){
     
+  let id =  url.searchParams.get('batch')
   let batch = await  request.json();
   let batchString = JSON.stringify(batch)
   
@@ -82,18 +81,11 @@ export async function put({request}){
               update 
                   registry.batch
               set
-                  epi_week = '${batch.epiwk}',
-                  batch_date = '${batch.date}', 
-                  plate = '${batchString}' , 
-                  a1 = '${batch.a1}',
-                  a7 = '${batch.a7}' ,
-                  plate_type = '${batch.plateType}' ,
-                  test = '${batch.test}'
+                  orders = '${batchString}'
               where 
-                  id = '${batch.batch}'
+                  id = '${id}'
   `)
-  console.log(addBatch.rowCount)
-  console.log(batchString)
+  console.log(addBatch.rowCount == 1 ? 'order mapping saved': 'order map not saved')
   return{
  status:200
   }

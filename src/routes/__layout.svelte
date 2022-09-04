@@ -11,4 +11,5 @@
     <title>Patient Registry</title>
 </svelte:head>
     <Nav />
-<slot />
+
+    <slot />

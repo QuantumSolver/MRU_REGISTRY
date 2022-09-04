@@ -8,18 +8,19 @@ export async function get({url}){
 
     let query = await pool.query(`
     select 
-      epi_week,
-      batch_date , 
-      --plate::json,
-      plate_type, 
-      a1 ,
-      a7 ,
-      test,
-      orders::json 
+      b.epi_week,
+      b.batch_date , 
+      b.plate_type, 
+      b.a1 ,
+      b.a7 ,
+      tst.name || ' (' ||split_part(tst.description , '(', 2) "test",
+      test test_id,
+      b.orders::json 
     from 
-      registry.batch 
+      registry.batch b
+      left join clinlims.test tst on tst.id::text = b.test::text
     where 
-      id = '${batchId}'
+      b.id = '${batchId}'
 `)
 
     let req = await query
@@ -31,9 +32,28 @@ export async function get({url}){
 
     }else{
 
+      let returnVal = req.rows[0]
+
+
+      let getResults = await pool.query(`
+      select dd.dict_entry  "name", tr.value  from clinlims.test_result tr
+
+      join
+      clinlims.dictionary dd on dd.id = tr.value::int
+      
+      where dd.is_active = 'Y'
+      and 
+      tr.is_active = true
+      and tr.test_id  = '${returnVal.test_id}'
+      order by dd.id asc
+`)
+
+      returnVal.results = getResults.rows
+
       return{
         status:200,
-        body:  req.rows[0]      }
+        body:  returnVal    
+       }
       
     }
 
@@ -61,7 +81,7 @@ export async function post({request}){
     let addBatch = await pool.query(`
             insert into 
                 registry.batch 
-                  (id,epi_week,batch_date, plate , a1,a7 ,plate_type ,orders ,test ) 
+                  (id,epi_week,batch_date, plate , a1,a7 ,plate_type ,orders,test  ) 
               values
                 ('${batch.batch}','${batch.epiwk}','${batch.date}','${batchString}','${batch.a1}','${batch.a7}','${batch.plateType}' ,'{}','${batch.test}')
            `)

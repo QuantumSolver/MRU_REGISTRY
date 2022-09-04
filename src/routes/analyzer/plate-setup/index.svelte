@@ -5,14 +5,15 @@
     import HalfSplit from './components/46_sample.svelte';
     import E_92 from "./components/e_92.svelte";
     import Rpn_92 from "./components/rpn_92.svelte";
-    import { Input, Label , ButtonGroup , Button ,ButtonGroupItem ,Spinner ,Toggle , Checkbox } from 'flowbite-svelte'
+    import { Input, Label , ButtonGroup , Button ,ButtonGroupItem ,Spinner ,Toggle ,Select  } from 'flowbite-svelte'
 	  import {  fly } from 'svelte/transition';
-    import {Plus , Save , ArrowLeft, Search} from 'svelte-heros'
+    import {Plus , CloudUpload , ArrowLeft, Search , Adjustments , PencilAlt} from 'svelte-heros'
     import { plate as hr } from './components/half_rr'
     import { plate as s46 } from './components/store-46_samp'
     import { plate as e92 } from './components/store-e92'
     import { plate as rpn } from './components/store-rpn92'
     import {selectedField ,orderMap} from './store'
+    import { onMount } from 'svelte';
     
 
     let firstNum = '' 
@@ -22,7 +23,10 @@
     let plateType = '1'
     let fetchingPat = false
     let checked = true
-
+    let update = false
+    let edit = false
+    let mapping = false
+    let saved = false 
     
     async function fetchBatchID (){
       let req = await fetch('/analyzer/plate-setup/api')
@@ -32,65 +36,96 @@
     async function postBatch (){
 
       
-  //     let options = {
-  //   body: JSON.stringify(batchData) ,headers: {
-  //     'Accept': 'application/json',
-  //     'Content-Type': 'application/json'
-  //   },
-  //   method: 'POST'
-  // };
+      let options = {
+    body: JSON.stringify(batchData) ,headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'POST'
+  };
 
-  //     let req = await fetch('/analyzer/plate-setup/api' , options)
+      let req = await fetch('/analyzer/plate-setup/api' , options)
 
-saved = true
-    }
+      saved = true
+      update = true
+
+}
+async function putBatch (){
+
+      let NewData = batchData
+
+let options = {
+body: JSON.stringify(NewData) ,headers: {
+'Accept': 'application/json',
+'Content-Type': 'application/json'
+},
+method: 'PUT'
+};
+
+let req = await fetch('/analyzer/plate-setup/api' , options)
+
+
+}
+
+async function putOrders (dta){
+
+let options = {
+body: JSON.stringify(dta) ,headers: {
+'Accept': 'application/json',
+'Content-Type': 'application/json'
+},
+method: 'PUT'
+};
+
+let req = await fetch('/analyzer/plate-setup/api/orders?batch='+ batchID , options)
+
+
+}
+
 
     async function getBatch (){
 
     let req = await fetch('/analyzer/plate-setup/api?batch='+ batchData.batch)
-    batchData = await req.json()
-    plateType = batchData.plateType
-    plate = batchData.plate
-    firstNum = batchData.a1
-    secondNum = batchData.a7
-  
-  
+    // batchData 
+    if(req.status == 200){
 
-// saved = true
+ let batch_Data = await req.json()
+      
+      plateType = batch_Data.plate_type
+      firstNum = batch_Data.a1
+      batchData.test = batch_Data.test
+      secondNum = batch_Data.a7
+      update = true
+      edit =true
+      $orderMap = batch_Data.orders
+    }else{
+      update = false
+    }
+
+
+
+  }
+ let batchData = {
+    batch: batchID,
+    epiwk:epiWk,
+    test:null,
+    date:batchDate,
+    plateType:plateType,
+    a1:firstNum,
+    a7:secondNum,
+    plate:plate
   }
 
     $: epiWk = epi(new Date(moment(batchDate).format('YYYY-MM-DD') )).week
     $: plate = plateType=='1'? $hr : plateType=='2'? $s46 : plateType=='3' ? $e92 : $rpn
-    $: batchData = {
-      batch: batchID ,
-      epiwk: epiWk,
-      date: batchDate,
-       plateType, 
-      a1: firstNum ,
-      a7: secondNum,
-      plate
-    }
-    let saved = false 
-    $: if(saved){
-
-      if(plateType == '1' && $selectedField.id == ''){
-        $selectedField.id = $hr[0].c7
-      }
-      
-      if(plateType == '2' && $selectedField.id == ''){
-        $selectedField.id = $s46[0].c1
-      }
-
-      if(plateType == '3' && $selectedField.id == ''){
-        $selectedField.id = $e92[0].c1
-      }
-      if(plateType == '4' && $selectedField.id == ''){
-        $selectedField.id = $rpn[0].c1
-      }
-
-
-    }
-
+    $: batchData.batch = batchID 
+    $: batchData.epiwk = epiWk
+    $: batchData.date = batchDate
+    $: batchData.plateType = plateType 
+    $: batchData.a1 = firstNum 
+    $: batchData.a7 = secondNum
+    $: batchData.plate = plate
+    
     
   const onKeyPress = e => {
     if (e.charCode === 13){
@@ -160,6 +195,14 @@ async function fetchPatient(){
 
 }
 
+let testList 
+onMount(async()=>{
+
+  let getTest = await fetch('/analyzer/plate-setup/api/test')
+  testList = await getTest.json()
+
+})
+
 </script>
 
                 
@@ -193,10 +236,10 @@ async function fetchPatient(){
                FORM STARTS
                
              -->  
-             {#if saved}
+             {#if mapping}
                <!-- Plate Mapping -->
                <div in:fly={{ x: -20, duration: 1000 }} >
-                <ArrowLeft on:click={()=>{saved = false}}  size='20' class=' cursor-pointer mb-2'/>
+                <ArrowLeft on:click={()=>{mapping = false}}  size='20' class=' cursor-pointer mb-2'/>
               
 
 
@@ -247,7 +290,7 @@ async function fetchPatient(){
                   
                 <ButtonGroup>
                         <ButtonGroupItem on:click={prevWell}>Prev</ButtonGroupItem>
-                        <ButtonGroupItem >Save</ButtonGroupItem>
+                        <ButtonGroupItem  on:click={putOrders($orderMap)}>Save</ButtonGroupItem>
                         <ButtonGroupItem  on:click={nextWell}>Next</ButtonGroupItem>
                  </ButtonGroup>
               
@@ -289,9 +332,14 @@ async function fetchPatient(){
                   <div class='my-6 relative'>
                     <div class="block">
                       <Label for='large-input' class='block mb-2'>Batch Number</Label>
-                      <Input size="sm" bind:value={batchID} inputClass="w-22  rounded-lg mb-2" />
+                      <Input size="sm" bind:value={batchID} bind:disabled={edit} inputClass="w-22  rounded-lg mb-2" />
                       <div class="inline-block align-middle "> 
-                        <Button size='xs' on:click={getBatch}  ><Search size='15' /></Button>
+                     {#if edit}
+                      <Button size='xs' on:click={()=>{edit = false}}  ><PencilAlt size='15' /></Button>
+                      {:else}
+                      <Button size='xs' on:click={getBatch}  ><Search size='15' /></Button>
+                     {/if}
+                       
                       </div>
                       <div class="inline-block align-middle "> 
                         <Button size='xs' on:click={fetchBatchID}  ><Plus size='15' /></Button>
@@ -307,7 +355,18 @@ async function fetchPatient(){
                         <Input value={epiWk} size="sm" inputClass="w-20 rounded-lg" />
                       </div>
                   </div>
-                    <Button class=' w-1/2' on:click={postBatch}><Save size='15'/> <span class="pl-1 ">Save</span> </Button>
+                  <div class="">
+                    <Label for='large-input' class=' mb-2'>Select Test
+                      <Select class="text-xs mb-4 w-2/3" items={testList} bind:value={batchData.test} />
+                    </Label>
+                  </div>
+
+                  {#if update}
+                  <Button  on:click={putBatch}><CloudUpload size='15'/> <span class="pl-1 ">Update</span> </Button>
+                  <Button on:click={()=>{mapping= true}}><Adjustments size='15'/> <span class="pl-1">Mapping</span> </Button>
+                  {:else}
+                  <Button class=' w-1/2' on:click={postBatch}><CloudUpload size='15'/> <span class="pl-1 ">Save</span> </Button>
+                  {/if}
                   
 
                           </div>

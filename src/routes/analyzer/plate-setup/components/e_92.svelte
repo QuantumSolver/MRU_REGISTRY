@@ -2,6 +2,7 @@
     let hover =''
     import { plate  } from "./store-e92.js";
     import { setNull } from "./store-e92.js";
+    import { selectedField ,orderMap } from "../store.js";
     function zer0(num) {
         return String(num).padStart(4, '0');
     }
@@ -127,52 +128,52 @@ $: firstNum = firstNum.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')
     <td class="px-6 py-4 text-sm text-gray-700 bg-gray-100 border-r border-gray-200 ">
         {p.row}
     </td>
-    <td class="px-6 py-4 cursor-pointer  w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c1'?'bg-gray-100':''} "
-     on:mouseenter="{()=>hover = 'c1'}" on:mouseleave="{()=>hover = ''}" >
+    <td class="{$selectedField.location == p.row+'1' ? ' bg-blue-200' : $orderMap[p.c1] !== undefined ? $orderMap[p.c1].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c1].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4 cursor-pointer  w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c1'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c1 ; $selectedField.iterator= i ; $selectedField.column = 1 ; $selectedField.location = p.row+'1' }} on:mouseenter="{()=>hover = 'c1'}" on:mouseleave="{()=>hover = ''}" >
         {p.c1}
     </td>
-    <td class="px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b  border-gray-200 {hover=='c2'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c2'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'2' ? ' bg-blue-200' : $orderMap[p.c2] !== undefined ? $orderMap[p.c2].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c2].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b  border-gray-200 {hover=='c2'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c2 ; $selectedField.iterator= i ; $selectedField.column = 2 ; $selectedField.location = p.row+'2' }} on:mouseenter="{()=>hover = 'c2'}" on:mouseleave="{()=>hover = ''}">
         {p.c2}
     </td>
-    <td class="px-6 py-4 cursor-pointer  w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c3'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c3'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'3' ? ' bg-blue-200' : $orderMap[p.c3] !== undefined ? $orderMap[p.c1].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c3].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4 cursor-pointer  w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c3'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c3 ; $selectedField.iterator= i ; $selectedField.column = 3 ; $selectedField.location = p.row+'3' }} on:mouseenter="{()=>hover = 'c3'}" on:mouseleave="{()=>hover = ''}">
         {p.c3}
     </td>
-    <td class="px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c4'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c4'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'4' ? ' bg-blue-200' : $orderMap[p.c4] !== undefined ? $orderMap[p.c4].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c4].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c4'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c4 ; $selectedField.iterator= i ; $selectedField.column = 4 ; $selectedField.location = p.row+'4' }} on:mouseenter="{()=>hover = 'c4'}" on:mouseleave="{()=>hover = ''}">
         {p.c4}
     </td>
-    <td class="px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c5'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c5'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'5' ? ' bg-blue-200' : $orderMap[p.c5] !== undefined ? $orderMap[p.c5].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c5].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c5'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c5 ; $selectedField.iterator= i ; $selectedField.column = 5 ; $selectedField.location = p.row+'5' }} on:mouseenter="{()=>hover = 'c5'}" on:mouseleave="{()=>hover = ''}">
         {p.c5}
     </td>
-    <td class="px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c6'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c6'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'6' ? ' bg-blue-200' : $orderMap[p.c6] !== undefined ? $orderMap[p.c6].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c6].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c6'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c6 ; $selectedField.iterator= i ; $selectedField.column = 6 ; $selectedField.location = p.row+'6' }} on:mouseenter="{()=>hover = 'c6'}" on:mouseleave="{()=>hover = ''}">
         {p.c6}
     </td>
-    <td class="px-6 py-4  cursor-pointer w-max text-sm text-gray-700 text-right border-r border-b border-l-4 border-gray-200 {hover=='c7'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c7'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'7' ? ' bg-blue-200' : $orderMap[p.c7] !== undefined ? $orderMap[p.c7].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c7].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4  cursor-pointer w-max text-sm text-gray-700 text-right border-r border-b border-l-4 border-gray-200 {hover=='c7'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c7 ; $selectedField.iterator= i ; $selectedField.column = 7 ; $selectedField.location = p.row+'7' }} on:mouseenter="{()=>hover = 'c7'}" on:mouseleave="{()=>hover = ''}">
         {p.c7}
     </td>
-    <td class="px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c8'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c8'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'8' ? ' bg-blue-200' : $orderMap[p.c8] !== undefined ? $orderMap[p.c8].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c1].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c8'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c8 ; $selectedField.iterator= i ; $selectedField.column = 8 ; $selectedField.location = p.row+'8' }} on:mouseenter="{()=>hover = 'c8'}" on:mouseleave="{()=>hover = ''}">
         {p.c8}
     </td>
-    <td class="px-6 py-4  cursor-pointer w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c9'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c9'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'9' ? ' bg-blue-200' : $orderMap[p.c1] !== undefined ? $orderMap[p.c9].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c9].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4  cursor-pointer w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c9'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c9 ; $selectedField.iterator= i ; $selectedField.column = 9 ; $selectedField.location = p.row+'9' }} on:mouseenter="{()=>hover = 'c9'}" on:mouseleave="{()=>hover = ''}">
         {p.c9}
     </td>
-    <td class="px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c10'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c10'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'10' ? ' bg-blue-200' : $orderMap[p.c10] !== undefined ? $orderMap[p.c10].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c10].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c10'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c10 ; $selectedField.iterator= i ; $selectedField.column = 10 ; $selectedField.location = p.row+'10' }} on:mouseenter="{()=>hover = 'c10'}" on:mouseleave="{()=>hover = ''}">
         {p.c10}
     </td>
-    <td class="px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c11'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c11'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'11' ? ' bg-blue-200' : $orderMap[p.c11] !== undefined ? $orderMap[p.c11].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c11].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c11'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c11 ; $selectedField.iterator= i ; $selectedField.column = 11 ; $selectedField.location = p.row+'11' }} on:mouseenter="{()=>hover = 'c11'}" on:mouseleave="{()=>hover = ''}">
         {p.c11}
     </td>
-    <td class="px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-b border-r  border-gray-200 {hover=='c12'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c12'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'12' ? ' bg-blue-200' : $orderMap[p.c12] !== undefined ? $orderMap[p.c12].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c12].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-b border-r  border-gray-200 {hover=='c12'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c12 ; $selectedField.iterator= i ; $selectedField.column = 12 ; $selectedField.location = p.row+'12' }} on:mouseenter="{()=>hover = 'c12'}" on:mouseleave="{()=>hover = ''}">
         {p.c12}
     </td>
     <td class="px-6 py-4 text-sm text-gray-700 bg-gray-100 border-r border-gray-200">
@@ -242,52 +243,52 @@ $: firstNum = firstNum.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')
     <td class="px-6 py-4 text-sm text-gray-700 bg-gray-100 border-r border-gray-200 ">
         {p.row}
     </td>
-    <td class="px-6 py-4 cursor-pointer  w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c1'?'bg-gray-100':''} "
-     on:mouseenter="{()=>hover = 'c1'}" on:mouseleave="{()=>hover = ''}" >
+    <td class="{$selectedField.location == p.row+'1' ? ' bg-blue-200' : $orderMap[p.c1] !== undefined ? $orderMap[p.c1].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c1].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4 cursor-pointer  w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c1'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c1 ; $selectedField.iterator= i ; $selectedField.column = 1 ; $selectedField.location = p.row+'1' }}  on:mouseenter="{()=>hover = 'c1'}" on:mouseleave="{()=>hover = ''}" >
         {p.c1}
     </td>
-    <td class="px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b  border-gray-200 {hover=='c2'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c2'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'2' ? ' bg-blue-200' : $orderMap[p.c2] !== undefined ? $orderMap[p.c2].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c2].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b  border-gray-200 {hover=='c2'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c2 ; $selectedField.iterator= i ; $selectedField.column = 2 ; $selectedField.location = p.row+'2' }} on:mouseenter="{()=>hover = 'c2'}" on:mouseleave="{()=>hover = ''}">
         {p.c2}
     </td>
-    <td class="px-6 py-4 cursor-pointer  w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c3'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c3'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'3' ? ' bg-blue-200' : $orderMap[p.c3] !== undefined ? $orderMap[p.c3].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c3].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4 cursor-pointer  w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c3'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c3 ; $selectedField.iterator= i ; $selectedField.column = 3 ; $selectedField.location = p.row+'3' }} on:mouseenter="{()=>hover = 'c3'}" on:mouseleave="{()=>hover = ''}">
         {p.c3}
     </td>
-    <td class="px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c4'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c4'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'4' ? ' bg-blue-200' : $orderMap[p.c4] !== undefined ? $orderMap[p.c4].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c4].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c4'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c4 ; $selectedField.iterator= i ; $selectedField.column = 4 ; $selectedField.location = p.row+'4' }} on:mouseenter="{()=>hover = 'c4'}" on:mouseleave="{()=>hover = ''}">
         {p.c4}
     </td>
-    <td class="px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c5'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c5'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'5' ? ' bg-blue-200' : $orderMap[p.c5] !== undefined ? $orderMap[p.c5].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c5].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c5'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c5 ; $selectedField.iterator= i ; $selectedField.column = 5 ; $selectedField.location = p.row+'5' }} on:mouseenter="{()=>hover = 'c5'}" on:mouseleave="{()=>hover = ''}">
         {p.c5}
     </td>
-    <td class="px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c6'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c6'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'6' ? ' bg-blue-200' : $orderMap[p.c6] !== undefined ? $orderMap[p.c6].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c6].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c6'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c6 ; $selectedField.iterator= i ; $selectedField.column = 6 ; $selectedField.location = p.row+'6' }} on:mouseenter="{()=>hover = 'c6'}" on:mouseleave="{()=>hover = ''}">
         {p.c6}
     </td>
-    <td class="px-6 py-4  cursor-pointer w-max text-sm text-gray-700 text-right border-r border-b border-l-4 border-gray-200 {hover=='c7'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c7'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'7' ? ' bg-blue-200' : $orderMap[p.c7] !== undefined ? $orderMap[p.c7].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c7].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4  cursor-pointer w-max text-sm text-gray-700 text-right border-r border-b border-l-4 border-gray-200 {hover=='c7'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c7 ; $selectedField.iterator= i ; $selectedField.column = 7 ; $selectedField.location = p.row+'7' }} on:mouseenter="{()=>hover = 'c7'}" on:mouseleave="{()=>hover = ''}">
         {p.c7}
     </td>
-    <td class="px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c8'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c8'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'8' ? ' bg-blue-200' : $orderMap[p.c8] !== undefined ? $orderMap[p.c8].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c8].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c8'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c8 ; $selectedField.iterator= i ; $selectedField.column = 8 ; $selectedField.location = p.row+'8' }} on:mouseenter="{()=>hover = 'c8'}" on:mouseleave="{()=>hover = ''}">
         {p.c8}
     </td>
-    <td class="px-6 py-4  cursor-pointer w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c9'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c9'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'9' ? ' bg-blue-200' : $orderMap[p.c9] !== undefined ? $orderMap[p.c9].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c9].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4  cursor-pointer w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c9'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c9; $selectedField.iterator= i ; $selectedField.column = 9 ; $selectedField.location = p.row+'9' }} on:mouseenter="{()=>hover = 'c9'}" on:mouseleave="{()=>hover = ''}">
         {p.c9}
     </td>
-    <td class="px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c10'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c10'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'10' ? ' bg-blue-200' : $orderMap[p.c10] !== undefined ? $orderMap[p.c10].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c10].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c10'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c10 ; $selectedField.iterator= i ; $selectedField.column = 10 ; $selectedField.location = p.row+'10' }} on:mouseenter="{()=>hover = 'c10'}" on:mouseleave="{()=>hover = ''}">
         {p.c10}
     </td>
-    <td class="px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c11'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c11'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'11' ? ' bg-blue-200' : $orderMap[p.c11] !== undefined ? $orderMap[p.c11].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c11].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c11'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c11 ; $selectedField.iterator= i ; $selectedField.column = 11 ; $selectedField.location = p.row+'11' }} on:mouseenter="{()=>hover = 'c11'}" on:mouseleave="{()=>hover = ''}">
         {p.c11}
     </td>
-    <td class="px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-b border-r  border-gray-200 {hover=='c12'?'bg-gray-100':''} "
-    on:mouseenter="{()=>hover = 'c12'}" on:mouseleave="{()=>hover = ''}">
+    <td class="{$selectedField.location == p.row+'12' ? ' bg-blue-200' : $orderMap[p.c12] !== undefined ? $orderMap[p.c12].mapped == 'true' ? 'bg-blue-100': $orderMap[p.c12].mapped == 'not found' ? 'bg-red-100' : ''  :''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-b border-r  border-gray-200 {hover=='c12'?'bg-gray-100':''} "
+    on:click={()=> { $selectedField.id= p.c12 ; $selectedField.iterator= i ; $selectedField.column = 12 ; $selectedField.location = p.row+'12' }} on:mouseenter="{()=>hover = 'c12'}" on:mouseleave="{()=>hover = ''}">
         {p.c12}
     </td>
     <td class="px-6 py-4 text-sm text-gray-700 bg-gray-100 border-r border-gray-200">
