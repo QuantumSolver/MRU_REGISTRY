@@ -10,7 +10,7 @@
     import { plate as s46 } from './components/store-46_samp'
     import { plate as e92 } from './components/store-e92'
     import { plate as rpn } from './components/store-rpn92'
-    import {selectedField ,orderMap , selectedResult , colorTemplate} from './store'
+    import {colorMap ,orderMap , selectedResult , colorTemplate} from './store'
     import Modal from './Modal.svelte'; 
     
     let firstNum = '' 
@@ -18,12 +18,6 @@
     let batchID
     let batchDate = moment().format('YYYY-MM-DD')
     let plateType = '1'
-    let fetchingPat = false
-    let checked = true
-    let update = false
-    let edit = false
-    let mapping = false
-    let saved = false 
     let loading = false
     let results
 
@@ -44,13 +38,11 @@
       epiWk = batch_Data.epi_week
       batchDate =  moment(batch_Data.batch_date).format('YYYY-MM-DD') 
       results = batch_Data.results
-      update = true
-      edit =true
       $orderMap = batch_Data.orders
       loading = false
       blurred = false
       results.forEach((vl ,i) => {
-        vl.color = $colorTemplate[i]
+        $colorMap[vl.value] = $colorTemplate[i]
       });
 
     }else{
@@ -138,7 +130,19 @@ let newBacthID
        </p>
     </Card>
 </div>
-      
+
+{#if results}
+<div class="mt-4">
+  <ButtonGroup>
+    {#each results as result}
+    
+    <ButtonGroupItem  on:click={()=>{$selectedResult = result.value}}  class='focus:ring-0  border-b-4  border-b-{ $colorMap[result.value] }-500 {result.value == $selectedResult ?  ' bg-slate-200':''} '>{result.name}</ButtonGroupItem>
+    
+   
+    {/each}
+  </ButtonGroup>
+</div>
+{/if}
        <div class="" >
 {#if loading}
 
@@ -146,15 +150,6 @@ let newBacthID
       <Spinner size='10' />
     </div>
 
-{/if}
-{#if results}
-<ButtonGroup>
-  {#each results as result}
-  
-  <ButtonGroupItem class='border-b-4  border-b-{result.color}' >{result.name}</ButtonGroupItem>
- 
-  {/each}
-</ButtonGroup>
 {/if}
 
 
@@ -181,7 +176,3 @@ let newBacthID
     </div>
   </div>
   
-{JSON.stringify($orderMap)}
-{#if results}
-{JSON.stringify(results)}
-{/if}

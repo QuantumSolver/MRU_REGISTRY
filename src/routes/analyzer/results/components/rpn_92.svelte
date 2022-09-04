@@ -1,7 +1,7 @@
 <script>
     let hover =''
     import { plate  } from "./store-rpn92";
-    import { selectedField ,orderMap } from "../store.js";
+    import { selectedResult ,orderMap } from "../store.js";
     function zer0(num) {
         return String(num).padStart(4, '0');
     }
@@ -128,51 +128,51 @@ $: firstNum = firstNum.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')
         {p.row}
     </td>
     <td class="{ $orderMap[p.c1] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4 cursor-pointer  w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c1'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c1].result = 'pos' }}  on:mouseenter="{()=>hover = 'c1'}" on:mouseleave="{()=>hover = ''}" >
+    on:click={()=> { $orderMap[p.c1].result = $selectedResult }}  on:mouseenter="{()=>hover = 'c1'}" on:mouseleave="{()=>hover = ''}" >
         {p.c1}
     </td>
     <td class="{ $orderMap[p.c2] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b  border-gray-200 {hover=='c2'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c2].result = 'pos' }} on:mouseenter="{()=>hover = 'c2'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c2].result = $selectedResult }} on:mouseenter="{()=>hover = 'c2'}" on:mouseleave="{()=>hover = ''}">
         {p.c2}
     </td>
     <td class="{ $orderMap[p.c3] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4 cursor-pointer  w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c3'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c3].result = 'pos' }} on:mouseenter="{()=>hover = 'c3'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c3].result = $selectedResult }} on:mouseenter="{()=>hover = 'c3'}" on:mouseleave="{()=>hover = ''}">
         {p.c3}
     </td>
     <td class="{ $orderMap[p.c4] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c4'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c4].result = 'pos' }} on:mouseenter="{()=>hover = 'c4'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c4].result = $selectedResult }} on:mouseenter="{()=>hover = 'c4'}" on:mouseleave="{()=>hover = ''}">
         {p.c4}
     </td>
     <td class="{ $orderMap[p.c5] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c5'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c5].result = 'pos' }} on:mouseenter="{()=>hover = 'c5'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c5].result = $selectedResult }} on:mouseenter="{()=>hover = 'c5'}" on:mouseleave="{()=>hover = ''}">
         {p.c5}
     </td>
     <td class="{ $orderMap[p.c6] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c6'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c6].result = 'pos' }} on:mouseenter="{()=>hover = 'c6'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c6].result = $selectedResult }} on:mouseenter="{()=>hover = 'c6'}" on:mouseleave="{()=>hover = ''}">
         {p.c6}
     </td>
     <td class="{ $orderMap[p.c7] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4  cursor-pointer w-max text-sm text-gray-700 text-right border-r border-b border-l-4 border-gray-200 {hover=='c7'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c7].result = 'pos' }} on:mouseenter="{()=>hover = 'c7'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c7].result = $selectedResult }} on:mouseenter="{()=>hover = 'c7'}" on:mouseleave="{()=>hover = ''}">
         {p.c7}
     </td>
     <td class="{ $orderMap[p.c8] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c8'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c8].result = 'pos' }} on:mouseenter="{()=>hover = 'c8'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c8].result = $selectedResult }} on:mouseenter="{()=>hover = 'c8'}" on:mouseleave="{()=>hover = ''}">
         {p.c8}
     </td>
     <td class="{ $orderMap[p.c9] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4  cursor-pointer w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c9'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c9].result = 'pos' }} on:mouseenter="{()=>hover = 'c9'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c9].result = $selectedResult }} on:mouseenter="{()=>hover = 'c9'}" on:mouseleave="{()=>hover = ''}">
         {p.c9}
     </td>
     <td class="{ $orderMap[p.c10] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c10'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c10].result = 'pos' }} on:mouseenter="{()=>hover = 'c10'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c10].result = $selectedResult }} on:mouseenter="{()=>hover = 'c10'}" on:mouseleave="{()=>hover = ''}">
         {p.c10}
     </td>
     <td class="{ $orderMap[p.c11] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c11'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c11].result = 'pos' }} on:mouseenter="{()=>hover = 'c11'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c11].result = $selectedResult }} on:mouseenter="{()=>hover = 'c11'}" on:mouseleave="{()=>hover = ''}">
         {p.c11}
     </td>
     <td class="{ $orderMap[p.c12] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-b border-r  border-gray-200 {hover=='c12'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c12].result = 'pos' }} on:mouseenter="{()=>hover = 'c12'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c12].result = $selectedResult }} on:mouseenter="{()=>hover = 'c12'}" on:mouseleave="{()=>hover = ''}">
         {p.c12}
     </td>
     <td class="px-6 py-4 text-sm text-gray-700 bg-gray-100 border-r border-gray-200">
@@ -231,51 +231,51 @@ $: firstNum = firstNum.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')
         {p.row}
     </td>
     <td class="{ $orderMap[p.c1] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4 cursor-pointer  w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c1'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c1].result = 'pos' }}  on:mouseenter="{()=>hover = 'c1'}" on:mouseleave="{()=>hover = ''}" >
+    on:click={()=> { $orderMap[p.c1].result = $selectedResult }}  on:mouseenter="{()=>hover = 'c1'}" on:mouseleave="{()=>hover = ''}" >
         {p.c1}
     </td>
     <td class="{ $orderMap[p.c2] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b  border-gray-200 {hover=='c2'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c2].result = 'pos' }} on:mouseenter="{()=>hover = 'c2'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c2].result = $selectedResult }} on:mouseenter="{()=>hover = 'c2'}" on:mouseleave="{()=>hover = ''}">
         {p.c2}
     </td>
     <td class="{ $orderMap[p.c3] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4 cursor-pointer  w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c3'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c3].result = 'pos' }} on:mouseenter="{()=>hover = 'c3'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c3].result = $selectedResult }} on:mouseenter="{()=>hover = 'c3'}" on:mouseleave="{()=>hover = ''}">
         {p.c3}
     </td>
     <td class="{ $orderMap[p.c4] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c4'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c4].result = 'pos' }} on:mouseenter="{()=>hover = 'c4'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c4].result = $selectedResult }} on:mouseenter="{()=>hover = 'c4'}" on:mouseleave="{()=>hover = ''}">
         {p.c4}
     </td>
     <td class="{ $orderMap[p.c5] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c5'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c5].result = 'pos' }} on:mouseenter="{()=>hover = 'c5'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c5].result = $selectedResult }} on:mouseenter="{()=>hover = 'c5'}" on:mouseleave="{()=>hover = ''}">
         {p.c5}
     </td>
     <td class="{ $orderMap[p.c6] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4  cursor-pointer w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c6'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c6].result = 'pos' }} on:mouseenter="{()=>hover = 'c6'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c6].result = $selectedResult }} on:mouseenter="{()=>hover = 'c6'}" on:mouseleave="{()=>hover = ''}">
         {p.c6}
     </td>
     <td class="{ $orderMap[p.c7] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4  cursor-pointer w-max text-sm text-gray-700 text-right border-r border-b border-l-4 border-gray-200 {hover=='c7'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c7].result = 'pos' }} on:mouseenter="{()=>hover = 'c7'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c7].result = $selectedResult }} on:mouseenter="{()=>hover = 'c7'}" on:mouseleave="{()=>hover = ''}">
         {p.c7}
     </td>
     <td class="{ $orderMap[p.c8] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c8'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c8].result = 'pos' }} on:mouseenter="{()=>hover = 'c8'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c8].result = $selectedResult }} on:mouseenter="{()=>hover = 'c8'}" on:mouseleave="{()=>hover = ''}">
         {p.c8}
     </td>
     <td class="{ $orderMap[p.c9] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4  cursor-pointer w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c9'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c9].result = 'pos' }} on:mouseenter="{()=>hover = 'c9'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c9].result = $selectedResult }} on:mouseenter="{()=>hover = 'c9'}" on:mouseleave="{()=>hover = ''}">
         {p.c9}
     </td>
     <td class="{ $orderMap[p.c10] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c10'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c10].result = 'pos' }} on:mouseenter="{()=>hover = 'c10'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c10].result = $selectedResult }} on:mouseenter="{()=>hover = 'c10'}" on:mouseleave="{()=>hover = ''}">
         {p.c10}
     </td>
     <td class="{ $orderMap[p.c11] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c11'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c11].result = 'pos' }} on:mouseenter="{()=>hover = 'c11'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c11].result = $selectedResult }} on:mouseenter="{()=>hover = 'c11'}" on:mouseleave="{()=>hover = ''}">
         {p.c11}
     </td>
     <td class="{ $orderMap[p.c12] == undefined ?  'blur-sm pointer-events-none select-none '  :''	} px-6 py-4 cursor-pointer  w-max text-sm text-gray-700 text-right border-b border-r  border-gray-200 {hover=='c12'?'bg-gray-100':''} "
-    on:click={()=> { $orderMap[p.c12].result = 'pos' }} on:mouseenter="{()=>hover = 'c12'}" on:mouseleave="{()=>hover = ''}">
+    on:click={()=> { $orderMap[p.c12].result = $selectedResult }} on:mouseenter="{()=>hover = 'c12'}" on:mouseleave="{()=>hover = ''}">
         {p.c12}
     </td>
     <td class="px-6 py-4 text-sm text-gray-700 bg-gray-100 border-r border-gray-200">
