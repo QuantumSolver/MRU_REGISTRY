@@ -12,7 +12,7 @@
     import { plate as rpn } from './components/store-rpn92'
     import {colorMap ,orderMap , selectedResult , colorTemplate} from './store'
     import Modal from './Modal.svelte'; 
-    
+    let bgClass = 'inline-flex items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white first:rounded-l-lg border-t last:rounded-r-md border-l last:border-r border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white focus:ring-0  border-b-4'
     let firstNum = '' 
     let secondNum = ''
     let batchID
@@ -58,7 +58,7 @@
   let batchData = {
     batch: batchID,
     epiwk:epiWk,
-    test:null,
+    test:'',
     date:batchDate,
     plateType:plateType,
     a1:firstNum,
@@ -136,7 +136,30 @@ let newBacthID
   <ButtonGroup>
     {#each results as result}
     
-    <ButtonGroupItem  on:click={()=>{$selectedResult = result.value}}  class='focus:ring-0  border-b-4  border-b-{ $colorMap[result.value] }-500 {result.value == $selectedResult ?  ' bg-slate-200':''} '>{result.name}</ButtonGroupItem>
+    <!-- <ButtonGroupItem  on:click={()=>{$selectedResult = result.value}}  class={`focus:ring-0  border-b-4  ${'border-b-'+$colorMap[result.value]+'-500'} ${( result.value == $selectedResult ?  ' bg-slate-200': '')}  `}>{result.name}</ButtonGroupItem> -->
+    <ButtonGroupItem  on:click={()=>{$selectedResult = result.value}} btnClass={bgClass+ 
+    (
+      
+    $colorMap[result.value] == 'indigo'? ' border-b-blue-500': 
+    $colorMap[result.value] == 'emerald'? ' border-b-emerald-500': 
+    $colorMap[result.value] == 'amber'? ' border-b-amber-500': 
+    $colorMap[result.value] == 'rose'? ' border-b-rose-500': 
+    $colorMap[result.value] == 'violet'? ' border-b-violet-500': 
+    $colorMap[result.value] == 'sky'? ' border-b-sky-500': 
+    $colorMap[result.value] == 'red'? ' border-b-red-500': 
+     '' 
+    
+    )+
+    ( 
+      result.value == $selectedResult && $colorMap[result.value] == 'indigo' ?  ' bg-blue-200':
+      result.value == $selectedResult && $colorMap[result.value] == 'emerald' ?  ' bg-emerald-200':
+      result.value == $selectedResult && $colorMap[result.value] == 'amber' ?  ' bg-amber-200':
+      result.value == $selectedResult && $colorMap[result.value] == 'rose' ?  ' bg-rose-200':
+      result.value == $selectedResult && $colorMap[result.value] == 'violet' ?  ' bg-violet-200':
+      result.value == $selectedResult && $colorMap[result.value] == 'sky' ?  ' bg-sky-200':
+      result.value == $selectedResult && $colorMap[result.value] == 'red' ?  ' bg-red-200':
+      ''
+     )} >{result.name}</ButtonGroupItem>
     
    
     {/each}

@@ -138,7 +138,16 @@ $: secondNum = secondNum.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')
     <td class="px-6 py-4 text-sm text-gray-700 bg-gray-100 border-r border-gray-200 ">
         {p.row}
     </td>
-    <td class="{ $orderMap[p.c1] == undefined ?  'blur-sm pointer-events-none select-none '  :''	}  {$orderMap[p.c1]== undefined ? '' : $orderMap[p.c1].result == undefined ? '' : 'bg-'+ $colorMap[$orderMap[p.c1].result] +'-200'}    px-6 py-4 cursor-pointer  w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c1'?'bg-gray-100':''} "
+    <td class="{ $orderMap[p.c1] == undefined ?  'blur-sm pointer-events-none select-none '  :''	}  {$orderMap[p.c1]== undefined ? '' : $orderMap[p.c1].result == undefined ? '' : 
+      $colorMap[$orderMap[p.c1].result] == 'indigo' ?  ' bg-blue-200':
+      $colorMap[$orderMap[p.c1].result] == 'emerald' ?  ' bg-emerald-200':
+      $colorMap[$orderMap[p.c1].result] == 'amber' ?  ' bg-amber-200':
+      $colorMap[$orderMap[p.c1].result] == 'rose' ?  ' bg-rose-200':
+      $colorMap[$orderMap[p.c1].result] == 'violet' ?  ' bg-violet-200':
+      $colorMap[$orderMap[p.c1].result] == 'sky' ?  ' bg-sky-200':
+      $colorMap[$orderMap[p.c1].result] == 'red' ?  ' bg-red-200':
+      ''
+      }    px-6 py-4 cursor-pointer  w-20 text-sm text-gray-700 text-right border-r border-b border-gray-200 {hover=='c1'?'bg-gray-100':''} "
     on:click={()=> { $orderMap[p.c1].result = $selectedResult }}  on:mouseenter="{()=>hover = 'c1'}" on:mouseleave="{()=>hover = ''}" >
         {p.c1}
     </td>
