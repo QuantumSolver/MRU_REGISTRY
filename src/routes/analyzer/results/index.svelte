@@ -22,6 +22,15 @@
     let results
 
 
+function assignResults(){
+
+  Object.values($orderMap).forEach(mapped=>{
+
+    $orderMap[mapped.id].result = $selectedResult
+  })
+
+}
+
 
     async function getBatch (){
       loading = true;
@@ -44,6 +53,7 @@
       results.forEach((vl ,i) => {
         $colorMap[vl.value] = $colorTemplate[i]
       });
+      $selectedResult = results[0].value
 
     }else{
       
@@ -75,6 +85,7 @@
     $: batchData.a1 = firstNum 
     $: batchData.a7 = secondNum
     $: batchData.plate = plate
+ 
 
 
  
@@ -164,6 +175,7 @@ let newBacthID
    
     {/each}
   </ButtonGroup>
+  <Button class='align-middle xl:mt-0 mt-2' outline on:click={assignResults} >Mark all</Button>
 </div>
 {/if}
        <div class="" >

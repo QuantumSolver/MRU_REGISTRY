@@ -26,7 +26,7 @@
     <NavLi sveltekit:prefetch href="/registry" >Registry</NavLi> 
       
       <Dropdown label="Epidemiology" placement="bottom-start" inline={true} >  
-        <DropdownItem>Epi-Data</DropdownItem>
+        <DropdownItem on:click={()=>{goto("/epi-data")}} >Epi-Data</DropdownItem>
         <DropdownItem on:click={()=>{goto("/analyzer/plate-setup")}} >Analyzer plate setup</DropdownItem>
         <DropdownItem on:click={()=>{goto("/analyzer/results")}}>Analyzer Results</DropdownItem>
         <DropdownItem>Reports</DropdownItem>
