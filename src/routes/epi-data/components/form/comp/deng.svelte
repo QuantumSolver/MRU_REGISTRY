@@ -1,6 +1,8 @@
 <script lang="ts">
 
-    import {Label , Input , Toggle , Select , Textarea} from 'flowbite-svelte'
+import {uiForm} from '../../store'
+
+import {Button, Label , Input , Toggle , Select , Textarea} from 'flowbite-svelte'
     import { form } from './dengue.js';
     import epi from 'epi-week'
     import moment from 'moment';
@@ -181,5 +183,18 @@ onMount(async()=>{
     <div class="w-1/2">
         <Textarea label='Comments'   ></Textarea>
     </div>
+
+
+    
+
+<div class="mt-8 gap-12 flex  flex-wrap items-center justify-end p-4 border-t border-gray-300 rounded-b-md">
+    <div>
+        <Button outline on:click={()=>{  $uiForm = 0 ;} } >Cancel</Button>
+    </div>
+
+    <div>
+
+    </div>
+</div>
     
 </div>
