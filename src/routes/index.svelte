@@ -18,7 +18,7 @@
     let defaultModal =false;
  let dates = '12/18/1992'
 </script>
-<div class="m-10">
+<!-- <div class="m-10">
 
   <Button on:click={() => (defaultModal = true)}>Default modal</Button>
 	<Modal title="Terms of Service" bind:open={defaultModal}>
@@ -37,4 +37,4 @@
         <CheckCircle slot="icon"/> Autohide in {counter}s.
     </Toast>
 {/if}
-</div>
+</div> -->
