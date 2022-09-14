@@ -1,6 +1,6 @@
 <script lang="ts">
 
-import {uiForm} from '../../store'
+import {uiForm,sampleId,testId} from '../../store'
 
 import {Button,Label , Input , Toggle , Select , Textarea} from 'flowbite-svelte'
 
@@ -28,11 +28,27 @@ let othrSamplist  = [
 
 $: $form.epiWk = epi(new Date(moment($form.dateReq).format('YYYY-MM-DD') )).week
 
+async function fetchEpiData() {
+    
+    let fetchEpidata = await fetch(`/api/epi_form?samp=${$sampleId}&test=${$testId}`)
+    let epiDataRes = await fetchEpidata.json();
+    epiDataRes = epiDataRes[0]
+    $form.name = epiDataRes.names
+    $form.surname = epiDataRes.surname
+    $form.dateReq = epiDataRes.request_time
+    $form.sex = epiDataRes.sex
+    $form.hospital = epiDataRes.site
+    $form.ward = epiDataRes.ward
+    $form.age = epiDataRes.p_age
+    $form.card = epiDataRes.card
+
+}
+
 let resultList = 
 onMount(async()=>{
   let fetchResults = await fetch('/api/influenza')
    resultList = await fetchResults.json()
-    
+    await fetchEpiData()
 } )
 </script>
     

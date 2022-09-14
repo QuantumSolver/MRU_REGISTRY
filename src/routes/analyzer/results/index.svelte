@@ -5,7 +5,7 @@
     import HalfSplit from './components/46_sample.svelte';
     import E_92 from "./components/e_92.svelte";
     import Rpn_92 from "./components/rpn_92.svelte";
-    import {  Button ,ButtonGroup,ButtonGroupItem ,Spinner , Card  } from 'flowbite-svelte'
+    import {  Button ,ButtonGroup,ButtonGroupItem ,Spinner , Card , Alert } from 'flowbite-svelte'
 	  import { plate as hr } from './components/half_rr'
     import { plate as s46 } from './components/store-46_samp'
     import { plate as e92 } from './components/store-e92'
@@ -105,9 +105,13 @@ let newBacthID
   <div class="container mx-auto  sm:px-8">
     
     <div class="py-8">
-      
-    <h1 class="inline font-medium text-3xl ">Results</h1>
     
+      <Alert color="red">
+        <span class="font-medium">Note!</span> Saving not implemented, pending Epi-date integration. 
+      </Alert>  
+    <h1 class="inline font-medium text-3xl">Results</h1>
+    
+
     <div class="inline-block mt-2 md:ml-10">
         <Button size='md' class='align-middle' outline  on:click={()=>{popupModal=true}} >Select Batch</Button>
        
