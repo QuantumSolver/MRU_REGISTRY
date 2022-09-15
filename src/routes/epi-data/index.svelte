@@ -14,9 +14,6 @@ let loading:boolean = false
 
     <h1 class="font-medium text-3xl mt-5">Epi-Data</h1>
     <div class="my-5 mx-96">
-        <Alert color="red">
-            <span class="font-medium">Note!</span> Forms pending data mapping. 
-        </Alert>
     </div>
         
     
