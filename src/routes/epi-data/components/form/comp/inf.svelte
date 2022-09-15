@@ -4,7 +4,7 @@ import {uiForm,sampleId,testId} from '../../store'
 
 import {Button,Label , Input , Toggle , Select , Textarea} from 'flowbite-svelte'
 
-    import { form } from './inf.js';
+    import { form ,resetForm} from './inf.js';
     import epi from 'epi-week'
     import moment from 'moment';
     import { onMount } from 'svelte';   
@@ -28,11 +28,32 @@ let othrSamplist  = [
 
 $: $form.epiWk = epi(new Date(moment($form.dateReq).format('YYYY-MM-DD') )).week
 
+
+let resultList
+
 async function fetchEpiData() {
     
     let fetchEpidata = await fetch(`/api/epi_form?samp=${$sampleId}&test=${$testId}`)
     let epiDataRes = await fetchEpidata.json();
     epiDataRes = epiDataRes[0]
+    if(!epiDataRes.exist){
+
+        $form.name = epiDataRes.names
+        $form.surname = epiDataRes.surname
+        $form.dateReq = epiDataRes.request_time
+        $form.sex = epiDataRes.sex
+        $form.hospital = epiDataRes.site
+        $form.ward = epiDataRes.ward
+        $form.age = epiDataRes.p_age
+        $form.test_id = $testId
+        $form.sample_id = $sampleId
+        $form.order_id = epiDataRes.order_id
+        $form.exist = epiDataRes.exist
+
+
+    }
+    else{
+    $form.id = epiDataRes.epi_id
     $form.name = epiDataRes.names
     $form.surname = epiDataRes.surname
     $form.dateReq = epiDataRes.request_time
@@ -40,16 +61,70 @@ async function fetchEpiData() {
     $form.hospital = epiDataRes.site
     $form.ward = epiDataRes.ward
     $form.age = epiDataRes.p_age
-    $form.card = epiDataRes.card
+    $form.symptoms = JSON.parse(epiDataRes.symptoms)
+    $form.vaccinated = epiDataRes.vaccinated
+    $form.result = epiDataRes.results_value    
+    $form.results = JSON.parse(epiDataRes.results)    
+    $form.test_id = $testId
+    $form.sample_id = $sampleId
+    $form.order_id = epiDataRes.order_id
+    $form.exist = epiDataRes.exist
+    $form.amies  = epiDataRes.amies
+    $form.hadj_pilgrim = epiDataRes.hadj_pilgrim
+    $form.ili = epiDataRes.ili
+    $form.iso = epiDataRes.iso
+    $form.vaccinated_date = epiDataRes.date_vacc
+    $form.unlabelled = epiDataRes.unlabelled
+    $form.travel_history = epiDataRes.travel_history
+    $form.sputum = epiDataRes.sputum
+    $form.spilt = epiDataRes.spilt
+    $form.sf = epiDataRes.sf
+    $form.sentinnel = epiDataRes.sentinnel
+    $form.sari = epiDataRes.sari
+    $form.sample = epiDataRes.e_sample
+    $form.process = epiDataRes.process
+    $form.p = epiDataRes.p
+    $form.other_symptoms = epiDataRes.other_symptoms
+    $form.other_samp = epiDataRes.other_samp
+    $form.medical_conditions = epiDataRes.medical_conditions
+    // $form.age_group = epiDataRes.age_group
+    $form.vtm = epiDataRes.vtm
+    
 
 }
 
-let resultList = 
+}
+
+
 onMount(async()=>{
   let fetchResults = await fetch('/api/influenza')
    resultList = await fetchResults.json()
     await fetchEpiData()
 } )
+
+
+
+
+
+
+async function postBatch (){
+
+      let method = $form.exist == true ? 'PUT' : 'POST'
+let options = {
+body: JSON.stringify($form) ,headers: {
+'Accept': 'application/json',
+'Content-Type': 'application/json'
+},
+method
+};
+
+let req = await fetch('/api/epi/inf' , options)
+
+}
+
+
+
+
 </script>
     
 <div class="mt-5 mb-20 inline-block min-w-full shadow-lg  border-2 rounded-lg p-6">
@@ -57,7 +132,7 @@ onMount(async()=>{
     <div class="inline-block w-1/3 align-top">
 
         <div >
-            <Input type='number' id='id' class="w-14" bind:value={$form.id} disabled/>
+            <Input type='number' id='id' class="w-1/4" bind:value={$form.id} disabled/>
         </div>
           
         
@@ -197,8 +272,8 @@ onMount(async()=>{
             </div>
             
             <div class=" inline-block  lg:mx-2">
-                <Label for='unlablled' class='block mb-2'>UNLABLLED</Label>
-                <Toggle id="unlablled" bind:checked={$form.unlablled}></Toggle>
+                <Label for='unlabelled' class='block mb-2'>UNLABELLED</Label>
+                <Toggle id="unlabelled" bind:checked={$form.unlabelled}></Toggle>
             </div>
             
             <div class=" inline-block  lg:mx-2">
@@ -277,8 +352,8 @@ onMount(async()=>{
                             <Input id='other_symptoms' class="w-80" bind:value={$form.other_symptoms}/>
                         </div>
                         <div class="my-2 ">
-                            <Label for='medical_coditions' class='block mb-2'>MEDICAL CONDITIONS</Label>
-                            <Input id='medical_coditions' class="w-80" bind:value={$form.medical_coditions}/>
+                            <Label for='medical_conditions' class='block mb-2'>MEDICAL CONDITIONS</Label>
+                            <Input id='medical_conditions' class="w-80" bind:value={$form.medical_conditions}/>
                         </div>
                         <div class="my-2 ">
                             <Label for='travel_history' class='block mb-2'>TRAVEL HISTORY</Label>
@@ -403,7 +478,8 @@ onMount(async()=>{
 
     <div class="mt-8 gap-12 flex  flex-wrap items-center justify-end p-4 border-t border-gray-300 rounded-b-md">
         <div>
-            <Button outline on:click={()=>{  $uiForm = 0 ;} } >Cancel</Button>
+            <Button outline on:click={()=>{  $uiForm = 0 ; resetForm()} } >Cancel</Button>
+            <Button  on:click={postBatch } >Save</Button>
         </div>
 
         <div>
