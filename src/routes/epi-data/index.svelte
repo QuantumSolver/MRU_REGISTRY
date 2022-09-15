@@ -9,14 +9,17 @@ let loading:boolean = false
 
 </script>
 
-<div class="container mx-auto">
+<div class="container mx-auto mb-20">
     
 
     <h1 class="font-medium text-3xl mt-5">Epi-Data</h1>
-    <div class="m-2"></div>
-    <Alert color="red">
-        <span class="font-medium">Note!</span> Forms pending data mapping. 
-    </Alert>
+    <div class="my-5 mx-96">
+        <Alert color="red">
+            <span class="font-medium">Note!</span> Forms pending data mapping. 
+        </Alert>
+    </div>
+        
+    
     {#if $uiForm == 0}
     <Dashboard/>
     {:else}

@@ -1,6 +1,6 @@
 <script lang="ts">
 import { onMount } from "svelte";
-import  { uiForm , sampleId , testId } from './store.js'
+import  { uiForm , sampleId , testId ,dashData } from './store.js'
 
 let epiData: Array<any> = []
 
@@ -10,12 +10,14 @@ let epiData: Array<any> = []
         epiData = await req.json()
 
     })
- 
+    
+ $: $dashData = epiData
+
 </script>
 
 <div class="mt-5 inline-block min-w-full shadow rounded-lg overflow-hidden">
 
-   {#if epiData != undefined && epiData.length > 0}
+   {#if $dashData != undefined && $dashData.length > 0}
 
        <table class="text-left w-full">
         <thead class="flex w-full">
@@ -30,7 +32,7 @@ let epiData: Array<any> = []
         </thead>
         <tbody class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" style="height:70vh;">
       
-    {#each epiData as order }
+    {#each $dashData as order }
           <tr class="flex w-full mb-4">
             <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold  text-sm  w-full">{order.labno}</td>
             <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold  text-sm  w-full">{order.name}</td>
