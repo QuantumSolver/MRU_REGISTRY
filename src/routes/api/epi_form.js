@@ -50,7 +50,9 @@ export async function get({url}){
                         "case",
                         n_gene,
                         e_gene,
-                        other_samp
+                        other_samp,
+                        blood,
+                        dbs
                         from registry.epi_v ev 
 
                         where sample::int = '${sample}'::int
