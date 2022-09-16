@@ -4,14 +4,19 @@ import  { uiForm , sampleId , testId ,dashData } from './store.js'
 
 let epiData: Array<any> = []
 
-    onMount(async()=>{
-
+    async function fetchData(){
+        
         let req = await fetch('/api/epi')
         epiData = await req.json()
+        $dashData =  epiData
+
+    }
+    onMount(async()=>{
+        await fetchData()
 
     })
     
- $: $dashData = epiData
+//  $: $dashData = epiData
 
 </script>
 

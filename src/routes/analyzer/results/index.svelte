@@ -1,11 +1,12 @@
-<script>
+<script lang="ts">
+    import Spinner from '$lib/Spinner.svelte'
     import epi from 'epi-week'; 
     import moment from 'moment';
     import HalfRenRight from './components/half_ren_right.svelte';
     import HalfSplit from './components/46_sample.svelte';
     import E_92 from "./components/e_92.svelte";
     import Rpn_92 from "./components/rpn_92.svelte";
-    import {  Button ,ButtonGroup,ButtonGroupItem ,Spinner , Card , Alert } from 'flowbite-svelte'
+    import {  Button ,ButtonGroup,ButtonGroupItem , Card  } from 'flowbite-svelte'
 	  import { plate as hr } from './components/half_rr'
     import { plate as s46 } from './components/store-46_samp'
     import { plate as e92 } from './components/store-e92'
@@ -32,6 +33,23 @@ function assignResults(){
 }
 
 
+let testID 
+
+async function postOrders(){
+
+let options = {
+body: JSON.stringify($orderMap) ,headers: {
+'Accept': 'application/json',
+'Content-Type': 'application/json'
+},
+method:'PUT'
+};
+
+let req = await fetch('/analyzer/results/api/push-results?batch='+ batchID + '&test='+ testID, options)
+
+}
+
+
     async function getBatch (){
       loading = true;
 
@@ -41,6 +59,7 @@ function assignResults(){
            let batch_Data = await req.json()
       batchID =  newBacthID
       plateType = batch_Data.plate_type
+      testID = batch_Data.test_id
       firstNum = batch_Data.a1
       secondNum = batch_Data.a7
       batchData.test = batch_Data.test
@@ -105,15 +124,12 @@ let newBacthID
   <div class="container mx-auto  sm:px-8">
     
     <div class="py-8">
-    
-      <Alert color="red">
-        <span class="font-medium">Note!</span> Saving not implemented, pending Epi-date integration. 
-      </Alert>  
     <h1 class="inline font-medium text-3xl">Results</h1>
     
 
     <div class="inline-block mt-2 md:ml-10">
         <Button size='md' class='align-middle' outline  on:click={()=>{popupModal=true}} >Select Batch</Button>
+        <Button size='md' class='align-middle ml-4'   on:click={postOrders} >Save</Button>
        
 
      
@@ -186,7 +202,7 @@ let newBacthID
 {#if loading}
 
     <div class=" absolute top-1/2 left-1/3 pl-16 z-10">
-      <Spinner size='10' />
+      <Spinner />
     </div>
 
 {/if}

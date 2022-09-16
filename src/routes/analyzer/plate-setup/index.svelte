@@ -79,8 +79,26 @@ method: 'PUT'
 
 let req = await fetch('/analyzer/plate-setup/api/orders?batch='+ batchID , options)
 
+updateOrders()
 
 }
+
+
+async function updateOrders(){
+
+let options = {
+body: JSON.stringify($orderMap) ,headers: {
+'Accept': 'application/json',
+'Content-Type': 'application/json'
+},
+method:'PUT'
+};
+
+let req = await fetch('/analyzer/results/api/push-results?batch='+ batchID + '&test='+ batchData.test, options)
+
+}
+
+
 
 
     async function getBatch (){

@@ -12,7 +12,7 @@
         <Avatar  slot="label" />
         <DropdownHeader>
             <span class="block text-sm"> Marcques Mouton </span>
-            <span class="block truncate text-sm font-medium"> king@npesnam.com </span>
+            <span class="block truncate text-sm font-medium"> king@stor-systems.com </span>
         </DropdownHeader>
         <DropdownItem >Dashboard</DropdownItem>
         <DropdownItem>Settings</DropdownItem>

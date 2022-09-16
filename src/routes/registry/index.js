@@ -12,10 +12,11 @@ try {
     wrd.name ward,
     ord.created_by 
     FROM registry.order ord
-    join clinlims.organization org on org.id =  ord.site::int 
-    join clinlims.provider pr on pr.id = ord.requester::int 
+    join clinlims.organization org on org.id::text =  ord.site 
+    join clinlims.provider pr on pr.id::text = ord.requester 
     join clinlims.person per on pr.person_id = per.id 
-    left join clinlims.organization wrd on wrd.id =  ord.ward::int `)
+    left join clinlims.organization wrd on wrd.id::text =  ord.ward
+    order by ord.labno desc `)
     return{
         body: {order: getOrders.rows, message :''}
     }
