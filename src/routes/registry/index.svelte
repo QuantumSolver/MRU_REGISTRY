@@ -2,7 +2,7 @@
 import { orders , orderModal,step ,getOrder} from '$lib/stores/orders';
 import { resetPatientTemplate }  from '$lib/stores/newOrder';
 import Modal from './newOrder.svelte'
-
+let oe_ext_host = process.env.OE_EXT_HOST
 import { Button} from 'flowbite-svelte';
 export let order
 import moment from 'moment';
@@ -54,7 +54,7 @@ function newOrderPopUp(){
           
               {#each $orders as order }
               <tr class="flex w-full mb-4">
-                <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold  text-sm  w-full"><a href="https://dev.npes.ml/OpenELIS-Global/SampleEdit?type=readwrite&accessionNumber={order.labno}" target="_blank">{order.labno}</a></td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold  text-sm  w-full"><a href="https://{oe_ext_host}/OpenELIS-Global/SampleEdit?type=readwrite&accessionNumber={order.labno}" target="_blank">{order.labno}</a></td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold  text-sm  w-full">{moment(order.request_time,'YYYY-MM-DDTHH:mm').format('DD/MM/YYYY HH:mm')}</td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold  text-sm  w-full">{order.requester}</td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white font-semibold  text-sm  w-full">{order.created_by}</td>
