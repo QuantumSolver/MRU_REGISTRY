@@ -1,5 +1,5 @@
 <script>
-
+ import { page ,navigating } from "$app/stores";
 	import '../app.css';
 	import Nav from '$lib/components/nav.svelte';
     
