@@ -1,4 +1,6 @@
 <script lang="ts">
+  
+    import {showToast} from '$lib/components/toast'
     import Spinner from '$lib/Spinner.svelte'
     import epi from 'epi-week'; 
     import moment from 'moment';
@@ -46,6 +48,10 @@ method:'PUT'
 };
 
 let req = await fetch('/analyzer/results/api/push-results?batch='+ batchID + '&test='+ testID, options)
+
+if(req.ok){
+  showToast()
+}
 
 }
 

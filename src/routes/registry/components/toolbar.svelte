@@ -3,6 +3,7 @@ import { orderModal ,step ,getOrder} from "$lib/stores/orders";
 import { Button } from 'flowbite-svelte';
 import { patientTemplate } from "$lib/stores/newOrder";
 
+import {showToast} from '$lib/components/toast'
 
 
 export async function saveOrder(){
@@ -21,6 +22,7 @@ let pushOrder = await fetch(`./api/create-order`,options)
 if(pushOrder.ok){
     $orderModal = false
     getOrder()
+    showToast()    
 }
 } 
 

@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+    import {showToast} from '$lib/components/toast'
     import epi from 'epi-week'; 
     import moment from 'moment';
     import HalfRenRight from './components/half_ren_right.svelte';
@@ -45,9 +46,11 @@
   };
 
       let req = await fetch('/analyzer/plate-setup/api' , options)
-
-      saved = true
-      update = true
+      if(req.ok){
+     saved = true
+     update = true
+  showToast()
+      }        
 
 }
 async function putBatch (){
@@ -63,7 +66,9 @@ method: 'PUT'
 };
 
 let req = await fetch('/analyzer/plate-setup/api' , options)
-
+if(req.ok){
+  showToast()
+}
 
 }
 
@@ -95,7 +100,9 @@ method:'PUT'
 };
 
 let req = await fetch('/analyzer/results/api/push-results?batch='+ batchID + '&test='+ batchData.test, options)
-
+if(req.ok){
+  showToast()
+}
 }
 
 
