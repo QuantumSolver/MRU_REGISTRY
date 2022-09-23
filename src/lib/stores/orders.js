@@ -1,5 +1,12 @@
 import {  writable } from "svelte/store";
-import moment from "moment";
+
+import { browser } from '$app/env';
+
+
+export let oe_ext_host = writable('');
+if(!browser){
+   oe_ext_host.set(`${process.env.OE_EXT_HOST}`)
+}
 
 export let user = writable({name:'marc'});
 export let sampModal = writable(false);
