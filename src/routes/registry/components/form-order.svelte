@@ -51,7 +51,10 @@ const optionIdentifier = 'id';
           <div class="md:w-1/2 px-3 mb-6 md:mb-0">
             <Label for='lab' class='block mb-2'>Lab Number</Label>   
             <div class="relative">       
-              <Iconinput noBorder iconClass="h-5 w-5"  icon={Qrcode}  id='lab' placeholder="20220000000...."    bind:value={$patientTemplate.order.labno}  /> 
+              <Iconinput noBorder iconClass="h-5 w-5"    id='lab' placeholder="20220000000...."    bind:value={$patientTemplate.order.labno}  >
+              <Qrcode/>
+              </Iconinput>
+
              <Button on:click={()=>{fetching=true; genAccession()}}  textSize="text-sm" class=" rounded-l-none absolute  top-0 bottom-0 right-0" type="button"> Generate {#if fetching}
               <div class="ml-2"><Spinner size="5"/></div>
             {/if}</Button>

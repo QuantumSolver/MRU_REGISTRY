@@ -8,7 +8,7 @@
     import HalfSplit from './components/46_sample.svelte';
     import E_92 from "./components/e_92.svelte";
     import Rpn_92 from "./components/rpn_92.svelte";
-    import {  Button ,ButtonGroup,ButtonGroupItem , Card  } from 'flowbite-svelte'
+    import {  Button ,ButtonGroup , Card  } from 'flowbite-svelte'
 	  import { plate as hr } from './components/half_rr'
     import { plate as s46 } from './components/store-46_samp'
     import { plate as e92 } from './components/store-e92'
@@ -22,7 +22,7 @@
     let batchDate = moment().format('YYYY-MM-DD')
     let plateType = '1'
     let loading = false
-    let results
+    let results: Array<any>
 
 
 function assignResults(){
@@ -35,7 +35,7 @@ function assignResults(){
 }
 
 
-let testID 
+let testID
 
 async function postOrders(){
 
@@ -62,7 +62,7 @@ if(req.ok){
       let req = await fetch('/analyzer/results/api?batch='+ newBacthID)
         if(req.status == 200){
 
-           let batch_Data = await req.json()
+      let batch_Data = await req.json()
       batchID =  newBacthID
       plateType = batch_Data.plate_type
       testID = batch_Data.test_id
@@ -120,7 +120,7 @@ let blurred = true;
 let newBacthID
 </script>
 <div class="relative">
-  <Modal bind:popupModal bind:newBacthID functionProp={()=>{getBatch()}} />
+  <Modal bind:popupModal bind:newBacthID={newBacthID} functionProp={()=>{getBatch()}} />
 
 
 </div>
@@ -173,8 +173,7 @@ let newBacthID
   <ButtonGroup>
     {#each results as result}
     
-    <!-- <ButtonGroupItem  on:click={()=>{$selectedResult = result.value}}  class={`focus:ring-0  border-b-4  ${'border-b-'+$colorMap[result.value]+'-500'} ${( result.value == $selectedResult ?  ' bg-slate-200': '')}  `}>{result.name}</ButtonGroupItem> -->
-    <ButtonGroupItem  on:click={()=>{$selectedResult = result.value}} btnClass={bgClass+ 
+    <Button  on:click={()=>{$selectedResult = result.value}} btnClass={bgClass+ 
     (
       
     $colorMap[result.value] == 'indigo'? ' border-b-blue-500': 
@@ -196,7 +195,7 @@ let newBacthID
       result.value == $selectedResult && $colorMap[result.value] == 'sky' ?  ' bg-sky-200':
       result.value == $selectedResult && $colorMap[result.value] == 'red' ?  ' bg-red-200':
       ''
-     )} >{result.name}</ButtonGroupItem>
+     )} >{result.name}</Button>
     
    
     {/each}

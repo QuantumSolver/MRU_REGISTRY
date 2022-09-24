@@ -2,7 +2,7 @@
   import {  Input,Textarea, Label , Button ,Iconinput , Search  ,Select } from 'flowbite-svelte';
 import moment from 'moment';
   import { patientTemplate ,resetPatientTemplate } from '$lib/stores/newOrder';
-import { Search as srch} from "svelte-heros";
+import { Search as Srch} from "svelte-heros";
 
   $: $patientTemplate.nic = ($patientTemplate.nic).toUpperCase()
   let findPatient = async (nic)=>{
@@ -38,7 +38,9 @@ import { Search as srch} from "svelte-heros";
           <div class="md:w-1/2 px-3">
               <Label for='default-input' class='block mb-2'>National ID</Label>            
               <div class="relative">       
-                <Iconinput noBorder   icon={srch}  id='nic' placeholder="N123456878D" bind:value={$patientTemplate.nic}  /> 
+                <Iconinput noBorder  id='nic' placeholder="N123456878D"   bind:value={$patientTemplate.nic}  > 
+                <Srch />
+                </Iconinput>
                 <Button on:click={()=>findPatient($patientTemplate.nic)} textSize="text-sm" class="absolute rounded-l-none  top-0 bottom-0 right-0" type="button">Search</Button>
               </div>
                 <p class="text-grey-dark text-xs italic">Please enter patient national identification number</p>

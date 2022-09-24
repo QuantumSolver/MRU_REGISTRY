@@ -1,7 +1,7 @@
 <script lang="ts">
 
     import { fly } from 'svelte/transition';
-    import { List , ListItem } from 'flowbite-svelte'
+    import { Listgroup , ListgroupItem  } from 'flowbite-svelte'
 export  let active = false
     let buttons = [
         { name: "20220000000000246", mycustomfield: "data1" },
@@ -15,10 +15,10 @@ export  let active = false
 {#if active}
     <div class="fixed  right-0 top-1/4 shadow-xl  rounded-lg " transition:fly="{{ x: 200 }}">
 
-        <List {active}   class="w-44 ">
+        <Listgroup {active}   class="w-44 ">
             {#each buttons as item , idx} 
-            <ListItem bind:current={item.current} bind:disabled={item.disabled} class="{item.disabled == true ? 'hidden':'' }">{item.name}</ListItem>
+            <ListgroupItem bind:current={item.current} bind:disabled={item.disabled} class="font-black {item.disabled == true ? 'hidden':'' }">{item.name}</ListgroupItem>
             {/each}
-        </List>
+        </Listgroup>
     </div>
 {/if}

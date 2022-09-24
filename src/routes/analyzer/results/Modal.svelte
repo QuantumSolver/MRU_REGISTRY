@@ -8,7 +8,7 @@
     export let functionProp = () => {}
 
 </script>
-<Modal title="Select Batch Order" bind:open={popupModal} size="xs">
+<Modal  title="Select Batch Order" bind:open={popupModal} size="xs">
  
     <Input  bind:value={newBacthID} inputClass="w-full  rounded-lg " />
       

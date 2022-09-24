@@ -6,7 +6,7 @@
     import HalfSplit from './components/46_sample.svelte';
     import E_92 from "./components/e_92.svelte";
     import Rpn_92 from "./components/rpn_92.svelte";
-    import { Input, Label , ButtonGroup , Button ,ButtonGroupItem ,Spinner ,Toggle ,Select  } from 'flowbite-svelte'
+    import { Input, Label , ButtonGroup , Button ,Spinner ,Toggle ,Select  } from 'flowbite-svelte'
 	  import {  fly } from 'svelte/transition';
     import {Plus , CloudUpload , ArrowLeft, Search , Adjustments , PencilAlt , Newspaper} from 'svelte-heros'
     import { plate as hr } from './components/half_rr'
@@ -241,10 +241,10 @@ onMount(async()=>{
     
     <div class="inline-block mt-2 md:ml-10">
         <ButtonGroup>
-                <ButtonGroupItem on:click={()=>{plateType = '1'}} class='{plateType == '1' ? 'border-b-4  border-b-blue-500' : '4 border-b-gray-100'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300' >Half Ren Right</ButtonGroupItem>
-                <ButtonGroupItem on:click={()=>{plateType = '2'}} class='{plateType == '2' ? 'border-b-4  border-b-blue-500' : '4 border-b-gray-100'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300' >46 Sample</ButtonGroupItem>
-                <ButtonGroupItem on:click={()=>{plateType = '3'}} class='{plateType == '3' ? 'border-b-4  border-b-blue-500' : '4 border-b-gray-100'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300'>E 92 Sample</ButtonGroupItem>
-                <ButtonGroupItem on:click={()=>{plateType = '4'}} class='{plateType == '4' ? 'border-b-4  border-b-blue-500' : '4 border-b-gray-100'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300'>RPN 92 Sample</ButtonGroupItem>
+                <Button on:click={()=>{plateType = '1'}} class='{plateType == '1' ? 'border-b-4  border-b-blue-500' : '4 border-b-gray-100'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300' >Half Ren Right</Button>
+                <Button on:click={()=>{plateType = '2'}} class='{plateType == '2' ? 'border-b-4  border-b-blue-500' : '4 border-b-gray-100'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300' >46 Sample</Button>
+                <Button on:click={()=>{plateType = '3'}} class='{plateType == '3' ? 'border-b-4  border-b-blue-500' : '4 border-b-gray-100'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300'>E 92 Sample</Button>
+                <Button on:click={()=>{plateType = '4'}} class='{plateType == '4' ? 'border-b-4  border-b-blue-500' : '4 border-b-gray-100'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300'>RPN 92 Sample</Button>
         </ButtonGroup>
            
         </div>    
@@ -317,9 +317,9 @@ onMount(async()=>{
                 <div class=" mt-5">
                   
                 <ButtonGroup>
-                        <ButtonGroupItem on:click={prevWell}>Prev</ButtonGroupItem>
-                        <ButtonGroupItem  on:click={putOrders($orderMap)}>Save</ButtonGroupItem>
-                        <ButtonGroupItem  on:click={nextWell}>Next</ButtonGroupItem>
+                        <Button on:click={prevWell}>Prev</Button>
+                        <Button  on:click={putOrders($orderMap)}>Save</Button>
+                        <Button  on:click={nextWell}>Next</Button>
                  </ButtonGroup>
               
                 </div>
