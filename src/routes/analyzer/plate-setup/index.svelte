@@ -8,15 +8,15 @@
     import Rpn_92 from "./components/rpn_92.svelte";
     import { Input, Label , ButtonGroup , Button ,ButtonGroupItem ,Spinner ,Toggle ,Select  } from 'flowbite-svelte'
 	  import {  fly } from 'svelte/transition';
-    import {Plus , CloudUpload , ArrowLeft, Search , Adjustments , PencilAlt} from 'svelte-heros'
+    import {Plus , CloudUpload , ArrowLeft, Search , Adjustments , PencilAlt , Newspaper} from 'svelte-heros'
     import { plate as hr } from './components/half_rr'
     import { plate as s46 } from './components/store-46_samp'
     import { plate as e92 } from './components/store-e92'
     import { plate as rpn } from './components/store-rpn92'
     import {selectedField ,orderMap} from './store'
     import { onMount } from 'svelte';
-    
-
+    import Worklist from '$lib/components/Worklist.svelte'
+    let active = false
     let firstNum = '' 
     let secondNum = ''
     let batchID
@@ -246,8 +246,11 @@ onMount(async()=>{
                 <ButtonGroupItem on:click={()=>{plateType = '3'}} class='{plateType == '3' ? 'border-b-4  border-b-blue-500' : '4 border-b-gray-100'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300'>E 92 Sample</ButtonGroupItem>
                 <ButtonGroupItem on:click={()=>{plateType = '4'}} class='{plateType == '4' ? 'border-b-4  border-b-blue-500' : '4 border-b-gray-100'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300'>RPN 92 Sample</ButtonGroupItem>
         </ButtonGroup>
-       
-        </div>        
+           
+        </div>    
+     <div class="ml-2 inline-block align-middle"> <Button   on:click={()=>active=!active}><Newspaper size='15'/> <span class="pl-1 ">{active == true ? 'Hide ':'Show ' }Worklist</span> </Button>
+     </div>
+
 	<div class="">
 </div>
       
@@ -392,7 +395,7 @@ onMount(async()=>{
                   {:else}
                   <Button class=' w-1/2' on:click={postBatch}><CloudUpload size='15'/> <span class="pl-1 ">Save</span> </Button>
                   {/if}
-                  
+                 
 
                           </div>
                    
@@ -429,3 +432,4 @@ onMount(async()=>{
     </div>
   </div>
   
+<Worklist {active} />

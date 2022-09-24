@@ -29,7 +29,7 @@
   </div>
         <div class="flex gap-2 flex-row-reverse">
        
-        <Button on:click={newOrderPopUp} >Add</Button>
+        <Button on:click={newOrderPopUp}>Add</Button>
         <Button outline on:click={getOrder} >Refresh</Button>
         </div>
         
