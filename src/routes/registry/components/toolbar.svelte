@@ -3,7 +3,7 @@ import { orderModal ,step ,getOrder} from "$lib/stores/orders";
 import { Button } from 'flowbite-svelte';
 import { patientTemplate } from "$lib/stores/newOrder";
 
-import {showToast} from '$lib/components/toast'
+import {visible} from "$lib/components/toast"
 
 
 export async function saveOrder(){
@@ -25,6 +25,17 @@ if(pushOrder.ok){
     showToast()    
 }
 } 
+
+
+
+
+const showToast = ()=> {
+        $visible = true;
+
+        setTimeout(()=>{$visible = false;} , 3000
+         )   
+    }
+
 
 </script>
 

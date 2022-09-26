@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {showToast} from '$lib/components/toast'
+  import {visible} from "$lib/components/toast"
     import epi from 'epi-week'; 
     import moment from 'moment';
     import HalfRenRight from './components/half_ren_right.svelte';
@@ -19,7 +19,7 @@
     let active = false
     let firstNum = '' 
     let secondNum = ''
-    let batchID
+    let batchID: string | undefined
     let batchDate = moment().format('YYYY-MM-DD')
     let plateType = '1'
     let fetchingPat = false
@@ -33,6 +33,15 @@
       let req = await fetch('/analyzer/plate-setup/api')
        batchID = (await req.json()).id
     }
+    let bsrch
+
+ const showToast = ()=> {
+        $visible = true;
+
+        setTimeout(()=>{$visible = false;} , 3000
+         )   
+    }
+
 
     async function postBatch (){
 
@@ -49,6 +58,7 @@
       if(req.ok){
      saved = true
      update = true
+     getWorklist(batchData.test)
   showToast()
       }        
 
@@ -101,12 +111,27 @@ method:'PUT'
 
 let req = await fetch('/analyzer/results/api/push-results?batch='+ batchID + '&test='+ batchData.test, options)
 if(req.ok){
+  
+  getWorklist(batchData.test)
   showToast()
 }
 }
 
+let worklistData : Array<string>
 
+async function getWorklist (tid){
 
+  let req = await fetch('/analyzer/plate-setup/api/worklist?test='+ tid)
+
+  if(req.status == 200){
+
+    let wl = await req.json()
+  
+   worklistData = wl
+
+}
+
+}
 
     async function getBatch (){
 
@@ -123,6 +148,8 @@ if(req.ok){
       update = true
       edit =true
       $orderMap = batch_Data.orders
+
+      getWorklist(batchData.test)
     }else{
       update = false
     }
@@ -178,8 +205,7 @@ function prevWell(){
   $selectedField.id = batchData.plate[$selectedField.iterator]['c'+ String($selectedField.column)]    
   $selectedField.location= batchData.plate[$selectedField.iterator].row +  String($selectedField.column)}
 }
- 
-async function fetchPatient(){
+  async function fetchPatient(){
     fetchingPat = true
     let req = await fetch('/analyzer/plate-setup/api/patient?labno='+$selectedField.barcode)
     let patient = await req.json()
@@ -239,6 +265,14 @@ onMount(async()=>{
       
     <h1 class="inline font-medium text-3xl ">Plate Setup</h1>
     
+        <!-- 
+             ####                      #### 
+             ##                          ##
+             ##  PLATE LAYOUT SELECTION  ##
+             ##                          ##
+             ####                      ####  
+                                            -->
+
     <div class="inline-block mt-2 md:ml-10">
         <ButtonGroup>
                 <Button on:click={()=>{plateType = '1'}} class='{plateType == '1' ? 'border-b-4  border-b-blue-500' : '4 border-b-gray-100'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300' >Half Ren Right</Button>
@@ -247,9 +281,33 @@ onMount(async()=>{
                 <Button on:click={()=>{plateType = '4'}} class='{plateType == '4' ? 'border-b-4  border-b-blue-500' : '4 border-b-gray-100'} focus:ring-0 hover:border-b-4 hover:border-b-slate-300'>RPN 92 Sample</Button>
         </ButtonGroup>
            
-        </div>    
-     <div class="ml-2 inline-block align-middle"> <Button   on:click={()=>active=!active}><Newspaper size='15'/> <span class="pl-1 ">{active == true ? 'Hide ':'Show ' }Worklist</span> </Button>
-     </div>
+        </div>
+        
+        
+        <!-- 
+             ####                      #### 
+             ##                          ##
+             ##  PLATE LAYOUT SELECTION  ##
+             ##                          ##
+             ####                      ####  
+                                            -->
+
+
+        <!-- WORKLIST BUTTON -->
+
+
+        <!-- {#if update}
+        
+        <div class="ml-2 inline-block align-middle"> 
+          <Button   on:click={()=>active=!active}>
+            <Newspaper size='15'/> 
+            <span class="pl-1 ">{active == true ? 'Hide ':'Show ' }Worklist</span>
+          </Button>
+        </div>
+        
+        {/if} -->
+        
+        <!-- WORKLIST BUTTON -->
 
 	<div class="">
 </div>
@@ -265,9 +323,19 @@ onMount(async()=>{
                
              -->  
              {#if mapping}
-               <!-- Plate Mapping -->
+             
+
+        <!-- 
+             ####                      #### 
+             ##                          ##
+             ##       PLATE MAPPING      ##
+             ##                          ##
+             ####                      ####  
+                                            -->
+
+
                <div in:fly={{ x: -20, duration: 1000 }} >
-                <ArrowLeft on:click={()=>{mapping = false}}  size='20' class=' cursor-pointer mb-2'/>
+                <ArrowLeft on:click={()=>{mapping = false; active =false }}  size='20' class=' cursor-pointer mb-2'/>
               
 
 
@@ -281,7 +349,7 @@ onMount(async()=>{
                 <div class="block">
                   <Label for='barcode' class='block my-2'>Barcode</Label>
                   <Input id='barcode' on:keypress={onKeyPress} type='text' size="sm" inputClass="w-36 rounded-lg" bind:value={$selectedField.barcode} />
-                  <Button size='sm' on:click={fetchPatient}  class='inline-block ml-2 align-middle' >
+                  <Button bind:this={bsrch} size='sm' on:click={fetchPatient}  class='inline-block ml-2 align-middle' >
                   {#if fetchingPat}
                   <Spinner size="4"/>
                   {:else}
@@ -328,7 +396,16 @@ onMount(async()=>{
                </div>
              
                 {:else}
-                <!-- Batch Info -->
+                
+
+        <!-- 
+             ####                      #### 
+             ##                          ##
+             ##         BATCH INFO       ##
+             ##                          ##
+             ####                      ####  
+                                            -->
+
                           <div in:fly={{ x: 20, duration: 1000 }}>
    <fieldset class="inline-block border-2 border-slate-400  rounded-lg p-2 shadow-md"><legend class="text-sm font-black">Starting Well</legend>
                             
@@ -391,7 +468,7 @@ onMount(async()=>{
 
                   {#if update}
                   <Button  on:click={putBatch}><CloudUpload size='15'/> <span class="pl-1 ">Update</span> </Button>
-                  <Button on:click={()=>{mapping= true}}><Adjustments size='15'/> <span class="pl-1">Mapping</span> </Button>
+                  <Button on:click={()=>{mapping= true; active =true }}><Adjustments size='15'/> <span class="pl-1">Mapping</span> </Button>
                   {:else}
                   <Button class=' w-1/2' on:click={postBatch}><CloudUpload size='15'/> <span class="pl-1 ">Save</span> </Button>
                   {/if}
@@ -432,4 +509,4 @@ onMount(async()=>{
     </div>
   </div>
   
-<Worklist {active} />
+<Worklist {active} {worklistData} bind:barcode={$selectedField.barcode}  propFunc={fetchPatient} />

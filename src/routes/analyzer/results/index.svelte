@@ -1,7 +1,9 @@
 <script lang="ts">
   
-    import {showToast} from '$lib/components/toast'
-    import Spinner from '$lib/Spinner.svelte'
+  import {visible} from "$lib/components/toast"
+
+
+  import Spinner from '$lib/Spinner.svelte'
     import epi from 'epi-week'; 
     import moment from 'moment';
     import HalfRenRight from './components/half_ren_right.svelte';
@@ -33,6 +35,14 @@ function assignResults(){
   })
 
 }
+
+
+ const showToast = ()=> {
+        $visible = true;
+
+        setTimeout(()=>{$visible = false;} , 3000
+         )   
+    }
 
 
 let testID

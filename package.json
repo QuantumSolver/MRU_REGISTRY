@@ -14,13 +14,17 @@
 		"format": "prettier --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
+		"@popperjs/core": "^2.11.6",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
 		"autoprefixer": "^10.4.7",
+		"classnames": "^2.3.2",
 		"dotenv": "^16.0.1",
 		"eslint": "^8.16.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-svelte3": "^4.0.0",
+		"flowbite": "^1.5.3",
+		"flowbite-svelte": "^0.27.1",
 		"moment": "^2.29.4",
 		"pg": "^8.7.3",
 		"postcss": "^8.4.14",
@@ -37,8 +41,6 @@
 	"dependencies": {
 		"@sveltejs/adapter-node": "^1.0.0-next.81",
 		"epi-week": "^0.0.1",
-		"flowbite": "^1.5.3",
-		"flowbite-svelte": "^0.27.1",
 		"node-fetch": "^3.2.9",
 		"npm": "^8.17.0",
 		"svelte-heros": "^2.3.5",
