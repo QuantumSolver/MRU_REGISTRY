@@ -26,7 +26,7 @@
         tos.description descr ,
         count( s.order_id )  cnts
         from clinlims.clinlims.type_of_sample  tos 
-        join (select  unnest(string_to_array(tests,',' )) test , order_id ,id sample from registry.samples) s on s.sample = tos.id
+        join (select  unnest(string_to_array(tests,',' )) test , order_id ,sample_type::int sample from registry.samples) s on s.sample = tos.id
         group by 1 order  by 1 ) a ) sample_orders
         ` )
         return{
