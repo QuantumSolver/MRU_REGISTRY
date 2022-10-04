@@ -2,23 +2,33 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    branches:
+      - 'main'
 
 jobs:
-  build:
+  docker:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: docker login
-    env :
-       DOCKER_USER: ${{secrets.DOCKER_USER}}
-       DOCKER_PASSWORD: ${{secrets.DOCKER_PASS}}
-    run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-    - uses: actions/checkout@v3
-    - name: docker build 
-    run: docker  build . --file Dockerfile --tag storsys/epireg:latest
-    - uses: actions/checkout@v3
-    - name: docker push
-    run: docker push ${{secrets.DOCKER_USER}}/epireg
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASS }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: storsys/epireg:latest
