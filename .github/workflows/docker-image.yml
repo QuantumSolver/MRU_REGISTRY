@@ -14,14 +14,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    -name: docker login
-     env:
+    - name: docker login
+    env :
        DOCKER_USER: ${{secrets.DOCKER_USER}}
        DOCKER_PASSWORD: ${{secrets.DOCKER_PASS}}
-     run: |
+    run: |
        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag storsys/epireg:$(date +%s)
-    - name : Docker push
-      run: docker push ${{secrets.DOCKER_USER}}/epireg
-    
+    -name: Build the Docker image
+    run: docker  build . --file Dockerfile --tag storsys/epireg:$(date +%s)
+    run:docker push ${{secrets.DOCKER_USER}}/epireg
