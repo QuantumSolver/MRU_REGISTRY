@@ -39,7 +39,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@sveltejs/adapter-node": "^1.0.0-next.81",
+		"@sveltejs/adapter-node": "^1.0.0",
 		"epi-week": "^0.0.1",
 		"node-fetch": "^3.2.9",
 		"npm": "^8.17.0",
