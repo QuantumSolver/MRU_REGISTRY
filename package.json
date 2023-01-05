@@ -43,7 +43,7 @@
 		"epi-week": "^0.0.1",
 		"node-fetch": "^3.2.9",
 		"npm": "^8.17.0",
-		"svelte-heros": "^2.3.5",
+		"svelte-heros": "^2.4.0",
 		"svelte-select": "^4.4.7"
 	}
 }
